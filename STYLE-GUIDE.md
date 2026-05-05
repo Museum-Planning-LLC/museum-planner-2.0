@@ -1,45 +1,58 @@
 # Museum Planner style guide
 
-Use this for site copy, Kit broadcasts that point here, book landing pages, and course descriptions.
+Use this for **museumplanner.org** (including `index.html` in this repo), Kit broadcasts that point here, book landing pages, and course descriptions. It is aligned with the **current static homepage**: dark editorial layout, serif reading tone, and clear separation from **museumplanning.com**.
 
-## Visual identity (shared with Museum Planning)
+---
 
-**museumplanning.com** and **museumplanner.org** use the **same** visual system. Differentiation is **role and content**, not a second color palette or unrelated logo.
+## Visual identity — Museum Planner site (`index.html`)
 
-### Logo lockup
+The public homepage is a **dark “reading room”**: warm ink background, cream type, copper accents, and restrained red for emphasis—not a light Inter + circle lockup template.
 
-- **Shape:** Solid circle; white wordmark centered inside (two lines).
-- **Museum Planning:** Line 1 `Museum`, line 2 `Planning`.
-- **Museum Planner:** Same treatment; line 2 reads `Planner` instead of `Planning`.
-- **Minimum margin:** Keep comfortable padding between type and the circle edge—match the balance of the master artwork.
+### Color tokens (CSS `:root` in `index.html`)
 
-Reference files in this repo:
+| Token | Approx. hex | Role |
+|-------|----------------|------|
+| **Ink** | `#141210` | Page background |
+| **Ink mid** | `#2a2520` | Panels, distinction block |
+| **Ink soft** | `#3d3830` | Secondary surfaces |
+| **Cream** | `#f5f0e8` | Primary text |
+| **Cream dim** | `#e8e2d6` | Body / secondary paragraphs |
+| **Cream mute** | `#b8b0a2` | Muted labels |
+| **Copper** | `#b5763a` | Eyebrows, rules, accents, primary CTA fill |
+| **Red** | `#c0392b` | Accent (use sparingly; pairs with `--red-soft` where defined) |
+| **Rule** | `rgba(245,240,232,0.12)` | Hairlines on dark |
+| **Rule warm** | `rgba(181,118,58,0.25)` | Copper-tinted borders |
 
-- `assets/logo-museum-planning-circle.png`
-- `assets/logo-museum-planning-circle-large.png`
+Do **not** introduce arbitrary rainbow accents. New components should reuse these tokens.
 
-Create the Museum Planner master file by swapping only the second line of text; **do not** change circle color, type style, or layout grid.
+### Typography (Google Fonts, loaded in `index.html`)
 
-### Color
+| Role | Font | Usage |
+|------|------|--------|
+| **Display / logo wordmark** | **Playfair Display** | Masthead “Museum**Planner**” (second word in copper), hero `h1`, card titles, post titles, book titles |
+| **Body / long reading** | **Source Serif 4** (light/regular) | Body copy, excerpts, sidebar bio |
+| **UI / labels / nav** | **DM Sans** | Masthead nav (uppercase, letterspaced), section labels, meta lines, buttons, footer |
 
-| Token | Role | Notes |
-|-------|------|--------|
-| **Museum red** | Primary brand fill (circle, key accents) | Warm red–orange; sample from the PNG source of truth. Approximate references only: `#C02E10`–`#CC2B00` range—**verify** against exported logo in design tools. |
-| **White** | Logo label on circle; primary text on red backgrounds | `#FFFFFF` |
-| **Neutrals** | Page backgrounds, body text on white | Off-white `#FAFAFA` or pure white for backgrounds; body text `#1a1a1a` or similar high-contrast gray—not pure black if softer contrast is desired. |
+**Logo in this template:** Text wordmark in Playfair with a copper-highlighted second word—not the circular PNG lockup on the homepage itself. Circular PNGs in `assets/` remain the **Museum Planning** brand artwork for print, email, or properties that use the red circle mark.
 
-Use Museum red sparingly off-logo (headers, primary buttons, key highlights). Avoid introducing a second “accent” color unless accessibility requires it (then document here).
+### Layout and components
 
-### Typography (web)
+- **Masthead:** Sticky, translucent ink bar; nav links muted cream → cream on hover; **Hire Mark →** uses copper outline CTA (`nav-cta`).
+- **Hero:** Eyebrow line (DM Sans, copper, uppercase) + large Playfair headline; body in Source Serif; inline link to **museumplanning.com** in copper, no underline clutter.
+- **Main + sidebar grid** (desktop): main column for sections; sidebar for bio, books, **The Practice** links, contact card.
+- **Section labels:** DM Sans, 10px-ish feel, wide letterspacing, uppercase, copper, bottom rule (`section-label`).
+- **Distinction block:** `ink-mid` background, **3px copper** left border—use for “two sites, two purposes” messaging.
+- **Responsive:** Stack columns under ~900px; trim some nav items on very small screens as in the template.
 
-- **Logo:** Fixed artwork—do not substitute a different face inside the circle lockup.
-- **UI and editorial:** Clean **sans-serif**, medium weight for UI; regular for long reading. Prefer a neutral grotesque or humanist sans aligned with the logo (e.g. **Inter**, **Source Sans 3**, **IBM Plex Sans**, or system stack `system-ui, -apple-system, "Segoe UI", sans-serif`).
+### Motion
 
-### Consistency checklist
+- Subtle **fade-up** on hero and page body (short duration, ease). Avoid busy animation on editorial pages.
 
-- Same logo geometry and color rules on both sites.
-- Favicon / social preview: use the circular lockup or a simplified mark derived from it—not unrelated imagery.
-- When linking between properties, visual continuity should feel **obviously one family**; only headlines and CTAs change.
+### Consistency with museumplanning.com
+
+- **Same family, different room:** Commercial site sells engagements; Museum Planner sells **attention and literacy**. Visual language can differ (editorial dark here; commercial site may stay light + circle mark).
+- **Cross-links:** Always make **museumplanning.com** obvious for hiring; copper/red styling on this site should not obscure that path.
+- **Favicon / social:** Prefer a mark derived from Playfair wordmark or circle asset—pick one system and document the file in this repo when finalized.
 
 ---
 
@@ -47,24 +60,25 @@ Use Museum red sparingly off-logo (headers, primary buttons, key highlights). Av
 
 - **Expert and direct.** Write for decision-makers and practitioners who are short on time.
 - **Humane, not hype.** Acknowledge complexity (politics, funding, community) without drama or jargon walls.
-- **First person when it’s yours.** Mark’s byline is appropriate for analysis and essays; product pages can use “we” for Museum Planner / Museum Planning LLC where legally accurate.
+- **First person when it’s yours.** Mark’s byline and “where the arguments live” tone match the homepage; product pages can use “we” for Museum Planning LLC where legally accurate.
 
 ## Terminology
 
-- **Museum Planning** or **Museum Planning LLC** — the consulting practice; use on commercial/sales paths.
-- **Museum Planner** — this brand (site, books, courses). Do not use “Museum Planner” to mean the LLC contract unless that’s legally intentional.
-- **Master plan / master planning** — reserve for real scope-of-work language; do not use for a $49 course title.
+- **Museum Planning** or **Museum Planning, LLC** — the consulting practice; hiring, feasibility, master planning, engagements.
+- **Museum Planner** — this site and brand for writing, archive, books, public thinking. Do not use “Museum Planner” to mean the LLC contract unless that’s legally intentional.
+- **Master plan / master planning** — reserve for real scope-of-work language; do not use for a low-ticket course title.
 
 ## Headlines and titles
 
 - Prefer concrete nouns and stakes: who it’s for, what changes.
 - Avoid clickbait; avoid vague “The future of museums” unless the piece earns it in the first paragraphs.
+- Display headlines may use **Playfair** with optional *italic* for contrast (see hero pattern in `index.html`).
 
 ## Calls to action
 
-- **Primary on Museum Planner:** Depth—newsletter, book, course—when the piece is educational.
-- **Secondary (always visible on product pages):** When the reader represents a city, institution, or board evaluating a building or capital project, direct them to **museumplanning.com** (or the relevant contact path) for professional engagement.
-- Do not imply that a course replaces feasibility study, master planning, or RFP-driven work.
+- **Primary on Museum Planner:** Read, archive, books, newsletter (when wired)—education and relationship.
+- **Consulting path:** **Hire Mark →**, **The Practice** block, **mark@museumplanning.com**, and links to **museumplanning.com** must stay easy to find on templates that mirror the homepage.
+- Do not imply that a course or book replaces feasibility study, master planning, or RFP-driven work.
 
 ## Email and Kit
 
@@ -86,3 +100,9 @@ Use Museum red sparingly off-logo (headers, primary buttons, key highlights). Av
 
 - Strip filler (“It goes without saying,” “In today’s ever-changing world”).
 - Replace vague intensifiers with data, examples, or a clear recommendation.
+
+---
+
+## Legacy assets (circle mark)
+
+PNG circle lockups for **Museum Planning** (white label on red circle) live in `assets/`. Use them where the **red circle** brand is required (e.g. email signatures, slide decks, museumplanning.com). They are **not** the default hero mark on the current Museum Planner `index.html`; export a **Museum / Planner** circle variant if you need the circle on this property too.

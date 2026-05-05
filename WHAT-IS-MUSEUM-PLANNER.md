@@ -1,30 +1,33 @@
 # What Museum Planner is
 
-**Museum Planner** is the depth layer for people who already care about museums: long-form analysis, frameworks, and eventually books and lightweight courses. It is **not** the commercial front door for hiring Museum Planning LLC.
+**Museum Planner** (**museumplanner.org**) is Mark Walhimer’s **intellectual home**—long-form arguments, frameworks, and an archive of writing about what museums are, what they owe the public, and what it takes to build one that lasts. It is **not** the consulting firm; that is **museumplanning.com**.
+
+The live homepage states it plainly: *Museum Planner is where the arguments live* … *This is not the consulting firm. That’s museumplanning.com. This is the place where the thinking happens in public.*
 
 ## Relationship to Museum Planning (museumplanning.com)
 
 | Property | Role |
 |----------|------|
-| **museumplanning.com** | Sales and credibility for municipalities and institutions: master planning, historic-building-to-museum conversions, and related engagements. |
-| **Museum Planner** | Authority, narrative, and products (books, courses) that **support** that work—by educating boards, staff, and champions—not by replacing bespoke consulting. |
+| **museumplanning.com** | **Museum Planning, LLC** — where municipalities and institutions **hire** Mark: feasibility through opening day, master planning, historic-building-to-museum work, and related engagements. |
+| **museumplanner.org** | **Museum Planner** — writing, reference, books, archive: how he thinks about museums in public. Serves practitioners, boards, and readers who want depth without conflating it with a paid engagement. |
 
-Traffic and trust flow **from Museum Planning to Museum Planner** when someone wants to go deeper (read, learn, buy). The reverse is optional: Museum Planner content should make the case for professional engagement when stakes are high.
+Traffic and trust often flow **from Museum Planning to Museum Planner** when someone wants to read, learn, or follow the archive. Museum Planner still routes **buyers** back to the practice (masthead **Hire Mark →**, sidebar **The Practice**, email to **mark@museumplanning.com**) so consulting stays the path for commissioned work.
 
-**Visual identity:** Museum Planning and Museum Planner share the **same** look—circle lockup, Museum red, white label—so the two sites read as one family. Only the wordmark line (`Planning` vs `Planner`) and page purpose differ. Details live in [STYLE-GUIDE.md](./STYLE-GUIDE.md).
+## What this site publishes
 
-## What we publish here
-
-- Essays and analysis on museums, culture, technology, and public trust.
-- Material that helps readers **think clearly** about planning decisions.
-- Product pages for books and future courses framed as orientation and literacy—not as a substitute for a paid master plan or municipal engagement.
+- **The writing** — Governance, public trust, cultural policy, AI, demographics, politics, funding.
+- **The reference** — Evergreen material from practice: exhibition design, feasibility thinking, starting a museum, benchmarks.
+- **The books** — e.g. *Museums 101* and *Designing Museum Experiences* (Rowman & Littlefield / AAM Press); companion sites and courses where they **orient**, not replace, professional planning.
+- **The archive** — Many years of categorized posts (exhibition design, museum planning, governance, trends, etc.).
 
 ## What we avoid
 
-- Positioning Museum Planner as a generic personal blog with no tie to professional practice.
+- Pretending the blog and the firm are the same thing—**they are deliberately separate**; both are real, different purposes and readers.
 - Courses or copy that promise the **same outcomes** as a master plan or feasibility study at a fraction of the cost (that cannibalizes consulting).
-- Competing calls-to-action that bury the path to **hire Museum Planning** when the reader is a buyer.
+- Burying the path to **hire Museum Planning** when the reader is a buyer evaluating scope for a building or institution.
 
 ## One-line positioning
 
-**Museum Planner sells insight and curriculum so audiences are smarter; Museum Planning sells the engagement when the work must be done for real.**
+**Museum Planner is where the thinking happens in public; Museum Planning is where the work gets hired and delivered.**
+
+Visual and UI rules for the current homepage live in [STYLE-GUIDE.md](./STYLE-GUIDE.md).
