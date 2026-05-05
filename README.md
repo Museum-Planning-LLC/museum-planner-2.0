@@ -8,6 +8,7 @@ Source and documentation for the **Museum Planner** property: positioning, voice
 
 | File | Purpose |
 |------|---------|
+| [index.html](./index.html) | Static homepage prototype aligned with `WHAT-IS-MUSEUM-PLANNER.md` and `STYLE-GUIDE.md` (Museum red, Inter, circle wordmark, CTAs). Replace the placeholder `#` newsletter link with your Kit URL when deploying. |
 | [WHAT-IS-MUSEUM-PLANNER.md](./WHAT-IS-MUSEUM-PLANNER.md) | What Museum Planner is, how it relates to museumplanning.com, and guardrails so products don’t cannibalize consulting. |
 | [STYLE-GUIDE.md](./STYLE-GUIDE.md) | Voice, terminology, CTAs, editorial standards, and **shared visual identity** with museumplanning.com (logo, color, type). |
 | `assets/` | Reference PNGs for the circular **Museum Planning** lockup; Museum Planner uses the same circle and red—swap line 2 to `Planner`. |

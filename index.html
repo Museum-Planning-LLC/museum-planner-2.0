@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Museum Planner — essays, frameworks, books, and courses that help boards and practitioners think clearly about museums. Not the commercial front door; that’s Museum Planning." />
+  <title>Museum Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --museum-red: #c02e10;
+      --museum-red-hover: #a5260d;
+      --white: #ffffff;
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --text-muted: #4a4a4a;
+      --border: #e8e8e8;
+      --max: 44rem;
+      --wide: 72rem;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--museum-red);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+
+    a:hover {
+      color: var(--museum-red-hover);
+    }
+
+    .wrap {
+      width: min(100% - 2rem, var(--wide));
+      margin-inline: auto;
+    }
+
+    .narrow {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+    }
+
+    /* Brand mark — matches circle lockup; line 2 reads Planner */
+    .brand-mark {
+      width: 7.5rem;
+      height: 7.5rem;
+      border-radius: 50%;
+      background: var(--museum-red);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      line-height: 1.2;
+      letter-spacing: 0.03em;
+      text-align: center;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .brand-mark span {
+      display: block;
+    }
+
+    header.site-header {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-title h1 {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    nav.header-nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav.header-nav a.button-outline {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      padding: 0.5rem 0.875rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    nav.header-nav a.button-outline:hover {
+      border-color: var(--museum-red);
+      color: var(--museum-red);
+    }
+
+    nav.header-nav a.button-primary {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      background: var(--museum-red);
+      color: var(--white);
+      border: none;
+    }
+
+    nav.header-nav a.button-primary:hover {
+      background: var(--museum-red-hover);
+      color: var(--white);
+    }
+
+    main {
+      padding-bottom: 4rem;
+    }
+
+    .hero {
+      padding: 3rem 0 2.5rem;
+      background: linear-gradient(180deg, var(--white) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin-inline: auto;
+    }
+
+    .hero-lede {
+      font-size: clamp(1.35rem, 3vw, 1.65rem);
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      margin: 0 0 0.75rem;
+      color: var(--text);
+    }
+
+    .hero p {
+      margin: 0 0 1rem;
+      color: var(--text-muted);
+      max-width: 38em;
+    }
+
+    .hero p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tagline {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      max-width: 38em;
+    }
+
+    section.block {
+      padding: 2.75rem 0;
+    }
+
+    section.block h2 {
+      margin: 0 0 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .cards {
+      display: grid;
+      gap: 1rem;
+    }
+
+    @media (min-width: 700px) {
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem;
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+    }
+
+    .card a.site-link {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    ul.clean {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    ul.clean li {
+      margin-bottom: 0.5rem;
+    }
+
+    ul.clean li:last-child {
+      margin-bottom: 0;
+    }
+
+    .cta-band {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.5rem 1.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .cta-band h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .cta-band p {
+      margin: 0 0 1rem;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    a.btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.15rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    a.btn-primary {
+      background: var(--museum-red);
+      color: var(--white);
+    }
+
+    a.btn-primary:hover {
+      background: var(--museum-red-hover);
+      color: var(--white);
+    }
+
+    a.btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    a.btn-secondary:hover {
+      border-color: var(--museum-red);
+      color: var(--museum-red);
+    }
+
+    .footnote {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      max-width: 40em;
+    }
+
+    footer.site-footer {
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    footer.site-footer p {
+      margin: 0 0 0.5rem;
+    }
+
+    footer.site-footer p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="header-title">
+        <div class="brand-mark" aria-hidden="true">
+          <span>Museum</span>
+          <span>Planner</span>
+        </div>
+        <h1>Museum Planner</h1>
+      </div>
+      <nav class="header-nav" aria-label="Primary">
+        <a class="button-primary" href="https://museumplanning.com/">Museum Planning — consulting</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div class="wrap hero-inner">
+          <p class="hero-lede">
+            Depth for people who already care about museums: analysis, frameworks, and eventually books and courses oriented to literacy—not a substitute for commissioned planning work.
+          </p>
+          <p>
+            Museum Planner is <strong>not</strong> the commercial front door for hiring Museum Planning LLC. Traffic often flows from <a href="https://museumplanning.com/">museumplanning.com</a> when you want to read, learn, or buy; when stakes are high, we still point you toward professional engagement.
+          </p>
+          <p class="tagline">
+            Museum Planner sells insight and curriculum so audiences are smarter; Museum Planning sells the engagement when the work must be done for real.
+          </p>
+      </div>
+    </div>
+
+    <section class="block" aria-labelledby="relationship-heading">
+      <div class="narrow">
+        <h2 id="relationship-heading">Two properties, one visual family</h2>
+        <p>
+          <strong>museumplanning.com</strong> and <strong>museumplanner.org</strong> share the same red circle palette and typographic discipline; only the wordmark line and the job of the page change.
+        </p>
+        <div class="cards" style="margin-top: 1.25rem;">
+          <article class="card">
+            <h3><a href="https://museumplanning.com/">museumplanning.com</a></h3>
+            <p>Sales and credibility for municipalities and institutions: master planning, historic-building-to-museum conversions, and related engagements.</p>
+          </article>
+          <article class="card">
+            <h3>Museum Planner</h3>
+            <p>Authority, narrative, and products—books and courses—that support that work by educating boards, staff, and champions without replacing bespoke consulting.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="publish-heading">
+      <div class="narrow">
+        <h2 id="publish-heading">What we publish here</h2>
+        <ul class="clean">
+          <li>Essays and analysis on museums, culture, technology, and public trust.</li>
+          <li>Material that helps readers think clearly about planning decisions.</li>
+          <li>Product pages for books and future courses framed as orientation and literacy—not as a substitute for a paid master plan or municipal engagement.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="avoid-heading">
+      <div class="narrow">
+        <h2 id="avoid-heading">What we steer clear of</h2>
+        <ul class="clean">
+          <li>Treating this site as a generic personal blog with no tie to professional practice.</li>
+          <li>Promising the same outcomes as a master plan or feasibility study at a fraction of the cost.</li>
+          <li>Burying the path to hire Museum Planning when you represent a buyer evaluating a building or capital project.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="cta-heading">
+      <div class="narrow">
+        <h2 id="cta-heading">Go deeper</h2>
+        <div class="cta-band">
+          <h3>Stay close to new writing and products</h3>
+          <p>
+            Replace this button with your Kit (or other) signup URL when you wire the live site. Educational outreach is the primary call to action on Museum Planner.
+          </p>
+          <div class="cta-actions">
+            <!-- Developer: set href to your Kit / newsletter landing page -->
+            <a class="btn btn-primary" href="#">Join the email list</a>
+            <a class="btn btn-secondary" href="https://museumplanning.com/">Need consulting? Museum Planning</a>
+          </div>
+          <p class="footnote">
+            If you are a municipality, institution, or board evaluating scope for a building or new museum, professional engagement belongs on <a href="https://museumplanning.com/">museumplanning.com</a>—not in a course checkout.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="narrow">
+      <p><strong>Museum Planner</strong> · Shared visual identity with Museum Planning</p>
+      <p>
+        Strategy and style documentation:
+        <a href="https://github.com/Museum-Planning-LLC/museum-planner-2.0">Museum-Planning-LLC/museum-planner-2.0</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
