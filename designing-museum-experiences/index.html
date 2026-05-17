@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designing Museum Experiences — Museum Planner</title>
+<meta name="description" content="Designing Museum Experiences by Mark Walhimer — published by Bloomsbury. A how-to guide for creating visitor-centered, inclusive museum experiences. Museum Planning LLC.">
+<link rel="canonical" href="../">
+<meta property="og:title" content="Designing Museum Experiences — Mark Walhimer">
+<meta property="og:description" content="A how-to guide for creating visitor-centered, inclusive museum experiences. Published by Bloomsbury.">
+<meta property="og:url" content="https://museumplanner.org/designing-museum-experiences/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@museum_visitor">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --deep:#0F1A24;--navy:#1B2A3B;--mid:#2C3E50;
+  --gold:#C9A84C;--gold-lt:#E2C97A;--copper:#C9A84C;
+  --red:#8C2018;
+  --cream:#F8F4EC;--parch:#F0EBE0;--ink:#1A1A1A;
+  --muted:#7A7060;--rule:#D4C8B0;
+  --serif:'Playfair Display',Georgia,serif;
+  --mono:'DM Mono',monospace;
+  --sans:'Lato',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto;z-index:600;height:64px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 52px;
+  background:rgba(15,26,36,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,168,76,.12);transition:background .3s;}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-mark{width:33px;height:33px;background:var(--red);border-radius:50%;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;}
+.nav-mark span{font-size:8px;font-weight:700;color:#fff;text-align:center;line-height:1.15;}
+.nav-name{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.65);}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(255,255,255,.36);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-buy{background:var(--gold)!important;color:var(--deep)!important;
+  padding:8px 17px!important;font-weight:700!important;letter-spacing:.1em!important;
+  transition:background .18s!important;}
+.nav-buy:hover{background:var(--gold-lt)!important;}
+@media(max-width:860px){nav{padding:0 22px;}.nav-links li:not(:last-child){display:none;}}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--deep);position:relative;display:flex;
+  align-items:center;padding:110px 52px 80px;overflow:hidden;}
+.ring{position:absolute;border-radius:50%;pointer-events:none;}
+.r1{width:680px;height:680px;top:-150px;right:-150px;border:1px solid rgba(201,168,76,.08);}
+.r2{width:460px;height:460px;top:-70px;right:-70px;border:1px solid rgba(201,168,76,.05);}
+.r3{width:300px;height:300px;bottom:-80px;left:12%;border:1px solid rgba(255,255,255,.03);}
+.hero-inner{max-width:1140px;margin:0 auto;width:100%;display:grid;
+  grid-template-columns:1fr 330px;gap:76px;align-items:center;position:relative;z-index:1;}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:13px;
+  animation:fadeUp .6s .1s both;}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold);}
+.hero h1{font-family:var(--serif);font-size:clamp(38px,5vw,68px);font-weight:700;
+  line-height:1.07;color:#fff;margin-bottom:8px;animation:fadeUp .6s .2s both;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-deck{font-family:var(--serif);font-size:clamp(14px,1.55vw,18.5px);font-style:italic;
+  color:rgba(255,255,255,.4);margin-bottom:34px;line-height:1.55;max-width:520px;
+  animation:fadeUp .6s .28s both;}
+.hero-pub{display:inline-flex;align-items:center;gap:11px;
+  background:rgba(201,168,76,.09);border:1px solid rgba(201,168,76,.22);
+  padding:10px 17px;margin-bottom:38px;animation:fadeUp .6s .34s both;}
+.hero-pub-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(255,255,255,.28);}
+.pub-rule{width:1px;height:20px;background:rgba(201,168,76,.28);}
+.hero-pub-name{font-family:var(--serif);font-size:13px;color:var(--gold);}
+.hero-actions{display:flex;gap:11px;flex-wrap:wrap;animation:fadeUp .6s .4s both;}
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:12px 22px;
+  text-decoration:none;transition:transform .18s,background .18s,border-color .18s,color .18s;
+  cursor:pointer;border:none;}
+.btn:hover{transform:translateY(-2px);}
+.btn-gold{background:var(--gold);color:var(--deep);}
+.btn-gold:hover{background:var(--gold-lt);}
+.btn-outline{border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);background:transparent;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-navy{background:var(--navy);color:var(--gold);}
+.btn-navy:hover{background:var(--mid);}
+.hero-stats{display:flex;gap:40px;padding-top:28px;
+  border-top:1px solid rgba(255,255,255,.07);margin-top:10px;
+  animation:fadeUp .6s .48s both;}
+.hs-n{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--gold);
+  line-height:1;margin-bottom:3px;}
+.hs-l{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.26);}
+/* hero book card */
+.hbook{background:linear-gradient(145deg,#1B2A3B,#111e2b);border:1px solid rgba(201,168,76,.18);
+  padding:40px 32px;position:relative;animation:fadeUp .7s .3s both;}
+.hbook-spine{position:absolute;top:0;left:0;width:6px;height:100%;
+  background:linear-gradient(180deg,var(--gold),#9A7828);}
+.hb-badge{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);opacity:.6;margin-bottom:16px;}
+.hb-title{font-family:var(--serif);font-size:25px;font-weight:900;color:#fff;
+  line-height:1.15;margin-bottom:8px;}
+.hb-title em{font-style:italic;color:var(--gold);display:block;}
+.hb-author{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-bottom:22px;}
+.hb-rule{height:1px;background:rgba(201,168,76,.2);margin-bottom:16px;}
+.hb-note{font-size:12px;color:rgba(255,255,255,.28);font-style:italic;
+  line-height:1.62;margin-bottom:20px;}
+.hb-buy{display:flex;align-items:center;justify-content:center;gap:7px;
+  background:var(--gold);color:var(--deep);font-family:var(--mono);font-size:9px;
+  letter-spacing:.13em;text-transform:uppercase;font-weight:700;padding:11px 16px;
+  text-decoration:none;transition:background .18s;}
+.hb-buy:hover{background:var(--gold-lt);}
+@media(max-width:860px){
+  .hero{padding:96px 22px 56px;}
+  .hero-inner{grid-template-columns:1fr;gap:36px;}
+  .hbook{display:none;}
+  .hero-stats{gap:22px;}
+}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:12px 0;overflow:hidden;white-space:nowrap;}
+.ticker-t{display:inline-flex;animation:ticker 32s linear infinite;}
+.ticker-t span{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--deep);font-weight:700;padding:0 36px;}
+.ticker-t span::after{content:'·';margin-left:36px;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* LAYOUT */
+.wrap{max-width:1140px;margin:0 auto;padding:0 52px;}
+.eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold);flex-shrink:0;}
+.sec-h{font-family:var(--serif);font-size:clamp(26px,3vw,44px);font-weight:700;
+  line-height:1.1;color:var(--navy);margin-bottom:14px;}
+.sec-h em{font-style:italic;color:var(--gold);}
+.sec-lead{font-size:15.5px;line-height:1.78;color:var(--muted);max-width:600px;margin-bottom:44px;}
+@media(max-width:860px){.wrap{padding:0 22px;}}
+
+/* ── BOOK ── */
+.book-sec{background:var(--parch);border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);padding:90px 0;}
+.book-lay{display:grid;grid-template-columns:1fr 1fr;gap:76px;align-items:center;}
+.book-art{background:var(--navy);padding:52px 40px;position:relative;overflow:hidden;
+  box-shadow:16px 16px 48px rgba(15,26,36,.26),-3px 5px 16px rgba(15,26,36,.1);}
+.book-art::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.07) 0%,transparent 55%);}
+.ba-spine{position:absolute;top:0;left:0;width:8px;height:100%;
+  background:linear-gradient(180deg,var(--gold),#9A7828);}
+.ba-pub{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);opacity:.55;margin-bottom:12px;position:relative;z-index:1;}
+.ba-title{font-family:var(--serif);font-size:34px;font-weight:900;color:#fff;
+  line-height:1.1;margin-bottom:9px;position:relative;z-index:1;}
+.ba-title em{font-style:italic;color:var(--gold);display:block;}
+.ba-author{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.36);margin-bottom:22px;position:relative;z-index:1;}
+.ba-rule{height:1px;background:rgba(201,168,76,.2);margin-bottom:16px;position:relative;z-index:1;}
+.ba-note{font-size:12px;color:rgba(255,255,255,.26);font-style:italic;
+  line-height:1.6;margin-bottom:20px;position:relative;z-index:1;}
+.ba-btn{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:var(--deep);
+  font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;padding:11px 17px;text-decoration:none;transition:background .18s;
+  position:relative;z-index:1;}
+.ba-btn:hover{background:var(--gold-lt);}
+.book-info h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,36px);font-weight:700;
+  line-height:1.14;color:var(--navy);margin-bottom:14px;}
+.book-info h2 em{color:var(--gold);font-style:italic;}
+.book-info p{font-size:15px;line-height:1.8;color:var(--muted);margin-bottom:14px;}
+.ch-list{list-style:none;margin:22px 0;border-top:1px solid var(--rule);}
+.ch-list li{display:flex;gap:13px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:baseline;}
+.ch-n{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;color:var(--gold);
+  min-width:28px;flex-shrink:0;padding-top:1px;}
+.ch-t{font-size:13.5px;font-weight:700;color:var(--navy);}
+.ch-d{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.5;}
+@media(max-width:860px){.book-lay{grid-template-columns:1fr;gap:32px;}}
+
+/* ── PULLQUOTE ── */
+.pq{background:var(--deep);padding:68px 52px;text-align:center;position:relative;overflow:hidden;}
+.pq::before{content:'"';position:absolute;top:-48px;left:50%;transform:translateX(-50%);
+  font-family:var(--serif);font-size:280px;color:rgba(201,168,76,.035);line-height:1;pointer-events:none;}
+.pq-text{font-family:var(--serif);font-size:clamp(16px,2.2vw,26px);font-style:italic;
+  color:rgba(255,255,255,.76);line-height:1.52;max-width:780px;margin:0 auto 16px;
+  position:relative;z-index:1;}
+.pq-text em{color:var(--gold);font-style:normal;}
+.pq-src{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);position:relative;z-index:1;}
+
+/* ── RESOURCES ── */
+.res-sec{padding:90px 0;}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:44px;}
+.res-card{background:#fff;border-top:3px solid var(--navy);padding:28px 24px;
+  transition:transform .18s,box-shadow .18s,border-top-color .18s;
+  text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.res-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(15,26,36,.07);border-top-color:var(--gold);}
+.res-ico{font-size:22px;margin-bottom:12px;}
+.res-tag{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:7px;}
+.res-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--navy);
+  margin-bottom:8px;line-height:1.2;}
+.res-desc{font-size:12.5px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:14px;}
+.res-cta{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--muted);
+  border-top:1px solid var(--rule);padding-top:11px;margin-top:auto;}
+@media(max-width:860px){.res-grid{grid-template-columns:1fr;}}
+
+/* ── TOOLBOX ── */
+.toolbox-sec{background:var(--parch);border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);padding:90px 0;}
+.tbox-lay{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:start;}
+.toolbox-intro p{font-size:15px;line-height:1.8;color:var(--muted);margin-bottom:13px;}
+.tool-list{list-style:none;margin-top:24px;}
+.tool-list li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;
+  border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--navy);line-height:1.5;}
+.tool-list li:first-child{border-top:1px solid var(--rule);}
+.tool-list li::before{content:attr(data-n);font-family:var(--mono);font-size:8.5px;
+  letter-spacing:.1em;color:var(--gold);min-width:24px;flex-shrink:0;padding-top:2px;}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.tc{background:#fff;border-top:2px solid var(--rule);padding:20px 18px;
+  transition:border-top-color .18s,transform .18s;text-decoration:none;color:inherit;display:block;}
+.tc:hover{border-top-color:var(--gold);transform:translateY(-2px);}
+.tc-ico{font-size:19px;margin-bottom:9px;}
+.tc-t{font-family:var(--serif);font-size:14.5px;font-weight:700;color:var(--navy);
+  margin-bottom:5px;line-height:1.2;}
+.tc-d{font-size:11px;color:var(--muted);line-height:1.6;}
+@media(max-width:860px){.tbox-lay{grid-template-columns:1fr;gap:32px;}.tool-grid{grid-template-columns:1fr;}}
+
+/* ── SERVICES ── */
+.svc-sec{padding:90px 0;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:44px;}
+.svc-card{background:#fff;padding:32px 24px;border-top:3px solid var(--gold);
+  transition:transform .18s,box-shadow .18s;}
+.svc-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(15,26,36,.07);}
+.svc-ico{width:34px;height:34px;background:var(--parch);border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:16px;}
+.svc-num{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:var(--gold);margin-bottom:9px;}
+.svc-title{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--navy);
+  margin-bottom:9px;line-height:1.2;}
+.svc-desc{font-size:12.5px;color:var(--muted);line-height:1.65;}
+@media(max-width:860px){.svc-grid{grid-template-columns:1fr;}}
+
+/* ── PROCESS ── */
+.proc-strip{background:var(--parch);border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);padding:64px 0;}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:38px;}
+.ps{background:#fff;padding:26px 20px;position:relative;}
+.ps::after{content:'→';position:absolute;top:50%;right:-10px;transform:translateY(-50%);
+  font-family:var(--mono);font-size:11px;color:var(--gold);z-index:2;}
+.ps:last-child::after{display:none;}
+.ps-n{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--gold);margin-bottom:9px;}
+.ps-t{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--navy);
+  margin-bottom:7px;line-height:1.2;}
+.ps-d{font-size:11.5px;color:var(--muted);line-height:1.6;}
+@media(max-width:860px){.proc-steps{grid-template-columns:1fr 1fr;}.ps::after{display:none;}}
+@media(max-width:540px){.proc-steps{grid-template-columns:1fr;}}
+
+/* ── MVI ── */
+.mvi-sec{background:var(--navy);}
+.mvi-inner{padding:90px 0;}
+.mvi-lay{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.mvi-ey{color:var(--gold);}.mvi-ey::before{background:var(--gold);}
+.mvi-h{font-family:var(--serif);font-size:clamp(24px,2.6vw,40px);font-weight:700;
+  color:#fff;line-height:1.1;margin-bottom:16px;}
+.mvi-h em{font-style:italic;color:var(--gold);}
+.mvi-p{font-size:14px;color:rgba(255,255,255,.46);line-height:1.78;margin-bottom:13px;max-width:470px;}
+.mvi-sbox{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.13);
+  padding:30px;margin-bottom:18px;}
+.sdrow{display:flex;align-items:center;gap:22px;margin-bottom:24px;}
+.sdial{position:relative;width:106px;height:106px;flex-shrink:0;}
+.sdial svg{width:106px;height:106px;transform:rotate(-90deg);}
+.sdtxt{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;}
+.sdn{font-family:var(--serif);font-size:27px;font-weight:700;color:var(--gold);line-height:1;}
+.sdg{font-family:var(--mono);font-size:9px;letter-spacing:.09em;
+  color:rgba(255,255,255,.36);margin-top:2px;}
+.sd-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.26);margin-bottom:3px;}
+.sd-museum{font-family:var(--serif);font-size:15px;color:#fff;margin-bottom:2px;}
+.sd-sub{font-size:11px;color:rgba(255,255,255,.36);}
+.mvi-bars{display:flex;flex-direction:column;gap:12px;}
+.mbar-head{display:flex;justify-content:space-between;margin-bottom:5px;}
+.mbar-name{font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.54);}
+.mbar-score{font-family:var(--mono);font-size:9px;color:var(--gold);}
+.mbar-track{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.mbar-fill{height:100%;background:linear-gradient(90deg,var(--gold),#E2C97A);
+  border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.25,.46,.45,.94);}
+.mvi-ins-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:16px;}
+.mvi-ins{background:rgba(255,255,255,.04);padding:16px;text-align:center;}
+.min-n{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--gold);
+  line-height:1;margin-bottom:4px;}
+.min-d{font-size:10px;color:rgba(255,255,255,.36);line-height:1.5;}
+.mvi-cats{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.mcat{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.07);padding:20px 17px;
+  transition:background .18s,border-color .18s;}
+.mcat:hover{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.18);}
+.mcat:nth-child(5){grid-column:span 2;}
+.mcat-n{font-family:var(--mono);font-size:8px;letter-spacing:.16em;color:var(--gold);margin-bottom:7px;}
+.mcat-t{font-family:var(--serif);font-size:15px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.2;}
+.mcat-d{font-size:11px;color:rgba(255,255,255,.36);line-height:1.58;}
+.mvi-scale{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.09);
+  padding:20px 20px 16px;margin-top:2px;}
+.mscale-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:10px;}
+.scale-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;}
+.srow{font-size:11.5px;color:rgba(255,255,255,.44);padding:4px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);}
+.srow span{font-family:var(--mono);color:var(--gold);margin-right:7px;}
+@media(max-width:860px){.mvi-inner{padding:60px 0;}.mvi-lay{grid-template-columns:1fr;gap:36px;}
+  .mvi-cats{grid-template-columns:1fr;}.mcat:nth-child(5){grid-column:span 1;}
+  .mvi-ins-row{grid-template-columns:1fr;}}
+
+/* ── CONVERGENCE ── */
+.conv-sec{padding:90px 0;background:var(--cream);}
+.conv-lay{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:center;}
+.conv-panel{background:var(--deep);padding:44px 38px;position:relative;overflow:hidden;}
+.conv-panel::after{content:'AI';position:absolute;bottom:-22px;right:-6px;
+  font-family:var(--serif);font-size:120px;font-weight:900;
+  color:rgba(201,168,76,.04);line-height:1;pointer-events:none;}
+.cp-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;}
+.cp-t{font-family:var(--serif);font-size:24px;font-weight:700;color:#fff;
+  line-height:1.2;margin-bottom:12px;}
+.cp-t em{color:var(--gold);font-style:italic;}
+.cp-d{font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:20px;}
+.cp-items{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.cp-items li{display:flex;gap:9px;align-items:flex-start;font-size:11.5px;
+  color:rgba(255,255,255,.44);line-height:1.5;}
+.cp-items li::before{content:'→';color:var(--gold);flex-shrink:0;}
+.conv-info p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:13px;}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;}
+.tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--navy);border:1px solid var(--rule);padding:5px 11px;background:#fff;}
+@media(max-width:860px){.conv-lay{grid-template-columns:1fr;gap:32px;}}
+
+/* ── ABOUT ── */
+.about-sec{background:var(--parch);border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);padding:90px 0;}
+.about-lay{display:grid;grid-template-columns:1fr 330px;gap:64px;align-items:start;}
+.about-text p{font-size:15px;color:var(--muted);line-height:1.82;margin-bottom:14px;}
+blockquote.mq{border-left:3px solid var(--gold);background:#fff;padding:20px 24px;margin:22px 0;}
+blockquote.mq p{font-family:var(--serif);font-size:16px;font-style:italic;
+  color:var(--navy);margin:0;line-height:1.56;}
+blockquote.mq cite{display:block;margin-top:9px;font-family:var(--mono);font-size:8px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-style:normal;}
+.stat-stack{display:flex;flex-direction:column;gap:2px;}
+.scard{background:var(--navy);padding:17px 21px;}
+.sc-n{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--gold);
+  line-height:1;margin-bottom:2px;}
+.sc-l{font-family:var(--mono);font-size:7.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.27);}
+.info-blk{background:#fff;border:1px solid var(--rule);border-top:3px solid var(--gold);
+  padding:15px 17px;margin-top:2px;}
+.ib-lbl{font-family:var(--mono);font-size:7.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:4px;}
+.ib-val{font-size:12.5px;color:var(--navy);line-height:1.6;}
+@media(max-width:860px){.about-lay{grid-template-columns:1fr;gap:32px;}}
+
+/* ── CTA ── */
+.cta-sec{background:var(--deep);position:relative;overflow:hidden;}
+.cta-sec::before{content:'';position:absolute;bottom:-150px;left:-150px;width:560px;height:560px;
+  border:1px solid rgba(201,168,76,.05);border-radius:50%;pointer-events:none;}
+.cta-inner{padding:90px 0;display:grid;grid-template-columns:1fr 1fr;gap:76px;
+  align-items:center;position:relative;z-index:1;}
+.cta-ey{color:var(--gold);}.cta-ey::before{background:var(--gold);}
+.cta-h{font-family:var(--serif);font-size:clamp(24px,2.6vw,42px);font-weight:700;
+  color:#fff;line-height:1.1;margin-bottom:14px;}
+.cta-h em{font-style:italic;color:var(--gold);}
+.cta-p{font-size:14px;color:rgba(255,255,255,.4);line-height:1.8;margin-bottom:12px;}
+.cta-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;}
+.ci-items{display:flex;flex-direction:column;}
+.ci{padding:17px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.ci:first-child{border-top:1px solid rgba(255,255,255,.06);}
+.ci-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.21);margin-bottom:3px;}
+.ci-val{font-family:var(--serif);font-size:20px;color:#fff;}
+.ci-val a{color:#fff;text-decoration:none;transition:color .18s;}
+.ci-val a:hover{color:var(--gold);}
+@media(max-width:860px){.cta-inner{grid-template-columns:1fr;gap:40px;padding:60px 0;}}
+
+/* ── FOOTER ── */
+footer{background:#07101A;padding:32px 52px;border-top:1px solid rgba(255,255,255,.04);}
+.ft{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;
+  align-items:center;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.05);
+  flex-wrap:wrap;gap:18px;}
+.fbrand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.fmark{width:28px;height:28px;background:var(--red);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;}
+.fmark span{font-size:7px;font-weight:700;color:#fff;text-align:center;line-height:1.15;}
+.fname{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);}
+.socials{display:flex;align-items:center;gap:16px;}
+.socials a{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:rgba(255,255,255,.26);text-decoration:none;transition:color .18s;}
+.socials a:hover{color:var(--gold);}
+.fb{max-width:1140px;margin:18px auto 0;display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;}
+.fcopy{font-family:var(--mono);font-size:8px;letter-spacing:.09em;color:rgba(255,255,255,.17);}
+.fcontact{font-family:var(--mono);font-size:8px;letter-spacing:.09em;
+  color:rgba(255,255,255,.17);text-align:right;line-height:1.8;}
+@media(max-width:860px){footer{padding:26px 22px;}
+  .ft,.fb{flex-direction:column;align-items:flex-start;gap:12px;}
+  .fcontact{text-align:left;}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* Museum Planner site strip */
+.mp-top-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 40px;
+  font-family: var(--mono, 'DM Mono', monospace);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--rule);
+  background: var(--parch);
+}
+.mp-top-strip a { color: var(--mid); text-decoration: none; }
+.mp-top-strip a:hover { color: var(--ink); }
+.mp-top-strip .mp-muted { color: var(--muted); }
+
+</style>
+</head>
+<body>
+<div class="mp-top-strip">
+  <a href="../">← Museum Planner</a>
+  <span class="mp-muted"><a href="../museums-101/">Museums 101</a> · <a href="../museums-101/toolbox/">Toolbox</a></span>
+</div>
+
+
+<!-- NAV -->
+<nav id="top">
+  <a href="../" class="nav-brand">
+    <div class="nav-mark"><span>Museum<br>Plan.</span></div>
+    <span class="nav-name">Designing Museum Experiences</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../museums-101/">Museums 101</a></li>
+    <li><a href="#book">The Book</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="../museums-101/toolbox/">Museum Toolbox</a></li>
+    <li><a href="#mvi">MVI</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://amzn.to/3hwobnv" target="_blank" rel="noopener" class="nav-buy">Buy the Book →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+  <div class="hero-inner wrap">
+    <div>
+      <div class="hero-eyebrow">Designing Museum Experiences</div>
+      <h1>Every museum begins<br>with a <em>great experience.</em></h1>
+      <p class="hero-deck">A how-to guide for creating visitor-centered, inclusive museum experiences.</p>
+      <div class="hero-pub">
+        <span class="hero-pub-lbl">Published by</span>
+        <div class="pub-rule"></div>
+        <span class="hero-pub-name">Bloomsbury Publishing</span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://amzn.to/3hwobnv" target="_blank" rel="noopener" class="btn btn-gold">Buy on Amazon →</a>
+        <a href="#resources" class="btn btn-outline">Browse Resources</a>
+        <a href="#contact" class="btn btn-outline">Contact Mark</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hs-n">40+</div><div class="hs-l">Museums Completed</div></div>
+        <div><div class="hs-n">25</div><div class="hs-l">Years in Practice</div></div>
+        <div><div class="hs-n">50+</div><div class="hs-l">Resources &amp; Templates</div></div>
+        <div><div class="hs-n">100%</div><div class="hs-l">Mark Personally Involved</div></div>
+      </div>
+    </div>
+    <div class="hbook">
+      <div class="hbook-spine"></div>
+      <div class="hb-badge">Bloomsbury Publishing</div>
+      <div class="hb-title">Designing<br>Museum <em>Experiences</em></div>
+      <div class="hb-author">Mark Walhimer · Museum Planning LLC</div>
+      <div class="hb-rule"></div>
+      <div class="hb-note">"A how-to book for creating visitor-centered museums that emotionally and intellectually connect with museum visitors, stakeholders, and donors."</div>
+      <a href="https://amzn.to/3hwobnv" target="_blank" rel="noopener" class="hb-buy">Buy on Amazon →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-t">
+    <span>Visitor-Centered Design</span><span>Empathy Mapping</span><span>Visitor Journey Mapping</span>
+    <span>Service Design Blueprints</span><span>Content Mapping</span><span>Stakeholder Mapping</span>
+    <span>Audience Segmentation</span><span>Personas</span><span>System Mapping</span>
+    <span>Museum Vitality Index</span><span>Exhibition Design</span><span>Feasibility Studies</span>
+    <span>Visitor-Centered Design</span><span>Empathy Mapping</span><span>Visitor Journey Mapping</span>
+    <span>Service Design Blueprints</span><span>Content Mapping</span><span>Stakeholder Mapping</span>
+    <span>Audience Segmentation</span><span>Personas</span><span>System Mapping</span>
+    <span>Museum Vitality Index</span><span>Exhibition Design</span><span>Feasibility Studies</span>
+  </div>
+</div>
+
+<!-- BOOK -->
+<section class="book-sec" id="book">
+  <div class="wrap">
+    <div class="book-lay">
+      <div class="book-art reveal">
+        <div class="ba-spine"></div>
+        <div class="ba-pub">Bloomsbury Publishing</div>
+        <div class="ba-title">Designing<br>Museum <em>Experiences</em></div>
+        <div class="ba-author">Mark Walhimer · Museum Planning LLC</div>
+        <div class="ba-rule"></div>
+        <div class="ba-note">On Museum Planner · 50+ downloadable templates &amp; documents</div>
+        <a href="https://amzn.to/3hwobnv" target="_blank" rel="noopener" class="ba-btn">Buy on Amazon →</a>
+      </div>
+      <div class="book-info">
+        <div class="eyebrow reveal">The Book</div>
+        <h2 class="reveal d1">A <em>how-to guide</em> for every museum professional.</h2>
+        <p class="reveal d2"><em>Designing Museum Experiences</em>, published by Bloomsbury, leads readers through the methods and tools of the three stages of a museum visit — Pre-visit, In-Person Visit, and Post-visit — with a goal of motivating visitors to return and revisit the museum in the future.</p>
+        <p class="reveal d2">Museums are changing from static, encyclopedic institutions to visitor-centric organizations with shared authority, where museum and visitors become co-creators in content creation. This book provides the framework to make that transformation actionable.</p>
+        <ul class="ch-list reveal d3">
+          <li><span class="ch-n">01</span><div><div class="ch-t">The Visitor-Centered Museum</div><div class="ch-d">From institution-first to visitor-first. Empathy, shared authority, and co-creation.</div></div></li>
+          <li><span class="ch-n">02</span><div><div class="ch-t">The Three Stages of a Museum Visit</div><div class="ch-d">Pre-visit, in-person, and post-visit. Designing each touchpoint with intent.</div></div></li>
+          <li><span class="ch-n">03</span><div><div class="ch-t">Tools for Understanding Visitors</div><div class="ch-d">Empathy Mapping, Personas, Audience Segmentation, Visitor Journey Mapping.</div></div></li>
+          <li><span class="ch-n">04</span><div><div class="ch-t">Designing the Experience</div><div class="ch-d">Service Design Blueprints, System Mapping, Content Mapping, Stakeholder Mapping.</div></div></li>
+          <li><span class="ch-n">05</span><div><div class="ch-t">The Visitor Value Proposition</div><div class="ch-d">Creating meaningful intellectual, emotional, and experiential value. The visitation loop.</div></div></li>
+        </ul>
+        <div class="reveal d4" style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://amzn.to/3hwobnv" target="_blank" rel="noopener" class="btn btn-gold">Buy on Amazon →</a>
+          <a href="#resources" class="btn btn-navy">Browse Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULLQUOTE -->
+<div class="pq">
+  <p class="pq-text reveal">"The reason for using the tools is to empower visitors and meet their <em>emotional and intellectual needs,</em> with the goal of creating a lifelong bond between museum and visitor."</p>
+  <div class="pq-src reveal d1">— Designing Museum Experiences · Mark Walhimer · Bloomsbury</div>
+</div>
+
+<!-- RESOURCES -->
+<section class="res-sec" id="resources">
+  <div class="wrap">
+    <div class="eyebrow reveal">Resources</div>
+    <h2 class="sec-h reveal d1">50+ downloadable documents, <em>templates &amp; guides.</em></h2>
+    <p class="sec-lead reveal d2">The companion website to <em>Designing Museum Experiences</em> features the full library of tools referenced in the book — free to download and use in your institution.</p>
+    <div class="res-grid">
+      <a href="#resources" class="res-card reveal">
+        <div class="res-ico">🗺</div>
+        <div class="res-tag">Templates</div>
+        <div class="res-title">Visitor Journey Maps &amp; Empathy Maps</div>
+        <div class="res-desc">Downloadable templates for mapping the visitor experience across all three stages — pre-visit, in-person, and post-visit.</div>
+        <div class="res-cta">→ Downloadable templates</div>
+      </a>
+      <a href="#resources" class="res-card reveal d1">
+        <div class="res-ico">📋</div>
+        <div class="res-tag">Checklists</div>
+        <div class="res-title">Daily "How-To" Visitor Experience Checklists</div>
+        <div class="res-desc">Operational checklists for museum staff covering every visitor touchpoint — from parking to post-visit follow-up.</div>
+        <div class="res-cta">→ Downloadable checklists</div>
+      </a>
+      <a href="#resources" class="res-card reveal d2">
+        <div class="res-ico">📚</div>
+        <div class="res-tag">Reference</div>
+        <div class="res-title">Bibliography &amp; Further Reading</div>
+        <div class="res-desc">Curated bibliography of visitor-centered design research, museum studies, and user-centered design methodology.</div>
+        <div class="res-cta">→ Reference list</div>
+      </a>
+      <a href="#resources" class="res-card reveal d1">
+        <div class="res-ico">💬</div>
+        <div class="res-tag">Glossary</div>
+        <div class="res-title">Online Glossary of Museum Visitor Experience Terms</div>
+        <div class="res-desc">Comprehensive definitions of every tool, framework, and methodology referenced in <em>Designing Museum Experiences</em>.</div>
+        <div class="res-cta">→ Online glossary</div>
+      </a>
+      <a href="#resources" class="res-card reveal d2">
+        <div class="res-ico">🔗</div>
+        <div class="res-tag">Links</div>
+        <div class="res-title">Visitor-Centered Museum Information Links</div>
+        <div class="res-desc">Curated links to additional visitor-centered museum information, case studies, and research from institutions worldwide.</div>
+        <div class="res-cta">→ Resource links</div>
+      </a>
+      <a href="#resources" class="res-card reveal d3">
+        <div class="res-ico">📄</div>
+        <div class="res-tag">Documents</div>
+        <div class="res-title">Sample Documents &amp; Planning Templates</div>
+        <div class="res-desc">More than 50 associated documents from Museum Planning LLC projects — real samples from real museum engagements.</div>
+        <div class="res-cta">→ 50+ documents</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MUSEUM TOOLBOX -->
+<section class="toolbox-sec" id="toolbox">
+  <div class="wrap">
+    <div class="eyebrow reveal">Museum Toolbox</div>
+    <h2 class="sec-h reveal d1">Practical tools for <em>every museum professional.</em></h2>
+    <div class="tbox-lay" style="margin-top:40px;">
+      <div class="toolbox-intro">
+        <p class="reveal d2">The Museum Toolbox is a curated collection of frameworks, worksheets, and planning tools used in real museum projects across the full arc of institutional development — from community assessment through opening day.</p>
+        <p class="reveal d2">Each tool is designed to be immediately actionable: download, adapt, and use with your team, board, or stakeholders.</p>
+        <ul class="tool-list reveal d3">
+          <li data-n="→">Empathy Mapping Worksheet</li>
+          <li data-n="→">Visitor Persona Template</li>
+          <li data-n="→">Audience Segmentation Matrix</li>
+          <li data-n="→">Service Design Blueprint</li>
+          <li data-n="→">Visitor Journey Map Template</li>
+          <li data-n="→">System Mapping Framework</li>
+          <li data-n="→">Content Mapping Grid</li>
+          <li data-n="→">Stakeholder Mapping Canvas</li>
+          <li data-n="→">Visitor Value Proposition Canvas</li>
+          <li data-n="→">Museum Context Map</li>
+        </ul>
+        <div class="reveal d4" style="margin-top:22px;">
+          <a href="#contact" class="btn btn-navy">Request Full Toolkit</a>
+        </div>
+      </div>
+      <div>
+        <div class="tool-grid reveal d2">
+          <a href="#toolbox" class="tc"><div class="tc-ico">🎯</div><div class="tc-t">Visitor Experience Frameworks</div><div class="tc-d">Pre-visit · In-Person · Post-visit tools and templates.</div></a>
+          <a href="#toolbox" class="tc"><div class="tc-ico">🗺</div><div class="tc-t">Journey &amp; Empathy Maps</div><div class="tc-d">Visual tools for understanding visitor motivations and behaviors.</div></a>
+          <a href="#toolbox" class="tc"><div class="tc-ico">📐</div><div class="tc-t">Planning &amp; Design Tools</div><div class="tc-d">Feasibility, master planning, and exhibition design frameworks.</div></a>
+          <a href="#toolbox" class="tc"><div class="tc-ico">📊</div><div class="tc-t">Museum Vitality Index</div><div class="tc-d">0–100 scoring framework normalized for institutional size.</div></a>
+          <a href="#toolbox" class="tc"><div class="tc-ico">🤝</div><div class="tc-t">Community Engagement</div><div class="tc-d">Stakeholder mapping, community assessment, and audience research.</div></a>
+          <a href="#toolbox" class="tc"><div class="tc-ico">📋</div><div class="tc-t">Operations Checklists</div><div class="tc-d">Daily, weekly, and seasonal visitor experience checklists.</div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="svc-sec" id="services">
+  <div class="wrap">
+    <div class="eyebrow reveal">Museum Planning LLC</div>
+    <h2 class="sec-h reveal d1">Feasibility through <em>Opening Day.</em></h2>
+    <p class="sec-lead reveal d2">A personal practice. Every engagement is worked directly — there is no associate who handles the day-to-day. When a board asks who they are hiring, the answer is: Mark.</p>
+    <div class="svc-grid">
+      <div class="svc-card reveal"><div class="svc-ico">📋</div><div class="svc-num">01</div><div class="svc-title">Community Assessment</div><p class="svc-desc">Understanding the community before any design decisions are made. Who are the visitors? What does the region already have?</p></div>
+      <div class="svc-card reveal d1"><div class="svc-ico">📊</div><div class="svc-num">02</div><div class="svc-title">Feasibility Studies</div><p class="svc-desc">Visitor projections, financial modeling, site evaluation, and peer benchmarking. Can this institution succeed?</p></div>
+      <div class="svc-card reveal d2"><div class="svc-ico">🗺</div><div class="svc-num">03</div><div class="svc-title">Strategic &amp; Master Planning</div><p class="svc-desc">Mission-driven planning that connects institutional purpose to physical reality and long-term trajectory.</p></div>
+      <div class="svc-card reveal d1"><div class="svc-ico">🎨</div><div class="svc-num">04</div><div class="svc-title">Exhibition Design</div><p class="svc-desc">From concept to construction documents — objects, interactives, interpretation, technology, and visitor journey choreography.</p></div>
+      <div class="svc-card reveal d2"><div class="svc-ico">💰</div><div class="svc-num">05</div><div class="svc-title">Business Planning &amp; Pro Forma</div><p class="svc-desc">Revenue mix, operating budgets, staffing plans, and capital campaign strategy for a sustainable institution.</p></div>
+      <div class="svc-card reveal d3"><div class="svc-ico">📈</div><div class="svc-num">06</div><div class="svc-title">Museum Vitality Index</div><p class="svc-desc">Proprietary 0–100 scoring — visitor experience, digital presence, financial health, community impact, institutional strength.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<div class="proc-strip">
+  <div class="wrap">
+    <div class="eyebrow reveal">How It Works</div>
+    <h2 class="sec-h reveal d1" style="max-width:480px;">From first conversation <em>to opening day.</em></h2>
+    <div class="proc-steps">
+      <div class="ps reveal"><div class="ps-n">Phase 01</div><div class="ps-t">Assess &amp; Discover</div><div class="ps-d">Community engagement, competitive analysis, site evaluation, stakeholder interviews, institutional audit.</div></div>
+      <div class="ps reveal d1"><div class="ps-n">Phase 02</div><div class="ps-t">Plan &amp; Model</div><div class="ps-d">Strategic framework, master plan, business plan, pro forma, capital campaign, board presentation.</div></div>
+      <div class="ps reveal d2"><div class="ps-n">Phase 03</div><div class="ps-t">Design &amp; Build</div><div class="ps-d">Exhibition design, fabrication oversight, technology integration, interpretation, contractor coordination.</div></div>
+      <div class="ps reveal d3"><div class="ps-n">Phase 04</div><div class="ps-t">Open &amp; Evaluate</div><div class="ps-d">Soft opening support, staff training, visitor experience assessment, post-opening MVI benchmarking.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MVI -->
+<section class="mvi-sec" id="mvi">
+  <div class="mvi-inner">
+    <div class="wrap">
+      <div class="mvi-lay">
+        <div>
+          <div class="eyebrow mvi-ey reveal">Museum Vitality Index</div>
+          <h2 class="mvi-h reveal d1">Measuring what <em>actually matters.</em></h2>
+          <p class="mvi-p reveal d2">A proprietary 0–100 composite scoring framework where every metric is normalized for institutional size. Raw numbers never used alone — only ratios and rates count.</p>
+          <p class="mvi-p reveal d2" style="margin-top:-4px;">A $500K museum with a strong digital strategy can score 85+ and outrank a $25M institution.</p>
+          <div class="mvi-sbox reveal d3">
+            <div class="sdrow">
+              <div class="sdial">
+                <svg viewBox="0 0 106 106">
+                  <circle cx="53" cy="53" r="43" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/>
+                  <circle cx="53" cy="53" r="43" fill="none" stroke="url(#gG)" stroke-width="8"
+                    stroke-dasharray="270" stroke-dashoffset="57" stroke-linecap="round" id="scoreArc"/>
+                  <defs><linearGradient id="gG" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#C9A84C"/>
+                    <stop offset="100%" stop-color="#E2C97A"/>
+                  </linearGradient></defs>
+                </svg>
+                <div class="sdtxt"><span class="sdn">79</span><span class="sdg">B+ · Strong</span></div>
+              </div>
+              <div>
+                <div class="sd-lbl">Live Example</div>
+                <div class="sd-museum">Connecticut River Museum</div>
+                <div class="sd-sub">Essex, Connecticut · FY 2024</div>
+              </div>
+            </div>
+            <div class="mvi-bars" id="mviBars">
+              <div><div class="mbar-head"><span class="mbar-name">Visitor Experience</span><span class="mbar-score">16 / 20</span></div><div class="mbar-track"><div class="mbar-fill" data-w="80%"></div></div></div>
+              <div><div class="mbar-head"><span class="mbar-name">Digital Presence</span><span class="mbar-score">17 / 20</span></div><div class="mbar-track"><div class="mbar-fill" data-w="85%"></div></div></div>
+              <div><div class="mbar-head"><span class="mbar-name">Financial Health</span><span class="mbar-score">15 / 20</span></div><div class="mbar-track"><div class="mbar-fill" data-w="75%"></div></div></div>
+              <div><div class="mbar-head"><span class="mbar-name">Community Impact</span><span class="mbar-score">16 / 20</span></div><div class="mbar-track"><div class="mbar-fill" data-w="80%"></div></div></div>
+              <div><div class="mbar-head"><span class="mbar-name">Institutional Strength</span><span class="mbar-score">15 / 20</span></div><div class="mbar-track"><div class="mbar-fill" data-w="75%"></div></div></div>
+            </div>
+          </div>
+          <div class="mvi-ins-row reveal d4">
+            <div class="mvi-ins"><div class="min-n">3.6×</div><div class="min-d">Instagram reach vs. Mystic Seaport per $1M budget</div></div>
+            <div class="mvi-ins"><div class="min-n">5 yrs</div><div class="min-d">Consecutive operating surplus including pandemic</div></div>
+            <div class="mvi-ins"><div class="min-n">14.9%</div><div class="min-d">Net surplus as % of revenue FY2024</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow mvi-ey reveal" style="margin-bottom:18px;">Five Categories · 20 Points Each</div>
+          <div class="mvi-cats">
+            <div class="mcat reveal"><div class="mcat-n">01</div><div class="mcat-t">Visitor Experience</div><div class="mcat-d">TripAdvisor &amp; Google ratings weighted for volume. Management response rate.</div></div>
+            <div class="mcat reveal d1"><div class="mcat-n">02</div><div class="mcat-t">Digital Presence</div><div class="mcat-d">Instagram followers per $1M operating budget. Posting consistency.</div></div>
+            <div class="mcat reveal d2"><div class="mcat-n">03</div><div class="mcat-t">Financial Health</div><div class="mcat-d">Revenue per visitor. Net surplus %. Endowment-to-budget ratio.</div></div>
+            <div class="mcat reveal d3"><div class="mcat-n">04</div><div class="mcat-t">Community Impact</div><div class="mcat-d">Visitors per local capita. Programming breadth. AAM accreditation.</div></div>
+            <div class="mcat reveal d4"><div class="mcat-n">05</div><div class="mcat-t">Institutional Strength</div><div class="mcat-d">Years operating. Collection depth normalized for institutional size.</div></div>
+          </div>
+          <div class="mvi-scale reveal d2">
+            <div class="mscale-lbl">MVI Grade Scale</div>
+            <div class="scale-grid">
+              <div class="srow"><span>90–100</span>A+ · World Class</div>
+              <div class="srow"><span>80–89</span>A · Exceptional</div>
+              <div class="srow"><span>70–79</span>B+ · Strong</div>
+              <div class="srow"><span>60–69</span>B · Developing</div>
+              <div class="srow"><span>50–59</span>C+ · Emerging</div>
+              <div class="srow"><span>&lt; 50</span>C–D · At Risk</div>
+            </div>
+          </div>
+          <div style="margin-top:16px;" class="reveal d3">
+            <a href="#contact" class="btn btn-gold">Request an MVI Report →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONVERGENCE ERA -->
+<section class="conv-sec" id="convergence">
+  <div class="wrap">
+    <div class="conv-lay">
+      <div>
+        <div class="eyebrow reveal">Thought Leadership · 2026</div>
+        <h2 class="sec-h reveal d1">The Museum in the <em>Convergence Era.</em></h2>
+        <div class="conv-info">
+          <p class="reveal d2">Spatial computing, embodied AI, and distributed intelligence are not future concerns. They are design decisions being made right now, in master plans and feasibility studies.</p>
+          <p class="reveal d2">Museums are shifting from static interpretive spaces to responsive, perceptual environments capable of modifying content, lighting, narrative, and pathways based on embodied interaction.</p>
+          <p class="reveal d2">Museum Planning LLC works at this intersection — translating the framework of <em>Convergence Era</em> (2026) into built, operational reality.</p>
+          <div class="tag-row reveal d3">
+            <span class="tag">Embodied AI</span><span class="tag">Spatial Computing</span>
+            <span class="tag">Museums Everywhere</span><span class="tag">Agentic Systems</span>
+            <span class="tag">Material Intelligence</span><span class="tag">Cultural Convergence</span>
+          </div>
+        </div>
+      </div>
+      <div class="conv-panel reveal d1">
+        <div class="cp-lbl">Convergence Era · Mark Walhimer · 2026</div>
+        <div class="cp-t">Industrial Design, AI, and the Transformation of <em>Cultural Systems.</em></div>
+        <div class="cp-d">Theoretical foundation for <em>Museums 101</em>, Second Edition and the Culture Everywhere platform.</div>
+        <ul class="cp-items">
+          <li>The Collapse of Roles — one person, one department</li>
+          <li>The Rise of Agentic Systems — beyond language</li>
+          <li>Museums Everywhere — culture outside the building</li>
+          <li>Embodied AI — intelligence in physical space</li>
+          <li>Spatial Computing — every space a computation</li>
+          <li>Material Intelligence — objects that think</li>
+          <li>Cultural Convergence — the responsive ecosystem</li>
+          <li>Educational Transformation — learning without walls</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-sec" id="about">
+  <div class="wrap">
+    <div class="about-lay">
+      <div class="about-text">
+        <div class="eyebrow reveal">About the Author</div>
+        <h2 class="sec-h reveal d1">Mark Walhimer &amp; <em>Museum Planning LLC.</em></h2>
+        <p class="reveal d2">Mark Walhimer is the managing partner of Museum Planning LLC, a museum consultancy, and a part-time industrial design professor. Museum Planning LLC specializes in the planning, design, and management of interactive educational experiences, with more than forty projects worldwide for an international clientele that includes science centers, art museums, history museums, libraries, and corporations.</p>
+        <p class="reveal d2">Projects include "turnkey" museum services for the City of McDonough, Georgia's C.O. Polk Interactive Museum; project manager and National Park Service liaison for "Alcatraz: Life on the Rock" traveling exhibition; project manager for Museo Interactivo de Economía (MIDE) in Mexico City; and master planning and exhibition design for Trans Studio Science Center in Bandung, Indonesia.</p>
+        <p class="reveal d2">Prior to founding Museum Planning LLC in 1999, Walhimer held positions at Discovery Science Center, the Children's Museum of Indianapolis, Tech Museum San Jose, and Liberty Science Center, and served as Chief Operating Officer of a museum exhibition design and fabrication firm.</p>
+        <blockquote class="mq reveal d3">
+          <p>"The plans I produce are designed to be built, not filed. I have been on the other side of the table when a consultant delivers a master plan. I know what happens to that document when the meeting ends."</p>
+          <cite>— Mark Walhimer · Managing Partner · Museum Planning LLC</cite>
+        </blockquote>
+      </div>
+      <div class="reveal d2">
+        <div class="stat-stack">
+          <div class="scard"><div class="sc-n">40+</div><div class="sc-l">Museums Completed</div></div>
+          <div class="scard"><div class="sc-n">25</div><div class="sc-l">Years in Practice</div></div>
+          <div class="scard"><div class="sc-n">1992</div><div class="sc-l">In Museums Since</div></div>
+        </div>
+        <div class="info-blk"><div class="ib-lbl">Education</div><div class="ib-val">Pratt Institute — M.S. Industrial Design &amp; Exhibition Design<br>Skidmore College — B.A. Studio Art</div></div>
+        <div class="info-blk"><div class="ib-lbl">Published Works</div><div class="ib-val"><em>Designing Museum Experiences</em> · Bloomsbury<br><em>Museums 101</em>, Second Edition · Forthcoming</div></div>
+        <div class="info-blk"><div class="ib-lbl">Offices</div><div class="ib-val">New York · Mexico City · Worldwide</div></div>
+        <div class="info-blk"><div class="ib-lbl">Notable Projects</div><div class="ib-val">C.O. Polk Interactive Museum · McDonough, GA<br>MIDE — Museo Interactivo de Economía · Mexico City<br>Trans Studio Science Center · Bandung, Indonesia<br>Alcatraz: Life on the Rock · NPS Traveling Exhibition</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta-sec" id="contact">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div>
+        <div class="eyebrow cta-ey reveal">Start a Conversation</div>
+        <h2 class="cta-h reveal d1">Every museum begins with a <em>conversation.</em></h2>
+        <p class="cta-p reveal d2">One hour. No cost. No obligation. Tell us where you are and what you are trying to build — whether that is a feasibility question, a capital campaign, a historic building looking for a mission, or a collection that has never been seen by the public.</p>
+        <p class="cta-p reveal d2" style="margin-top:-6px;">Mark is personally involved in every engagement and ready to begin within two weeks of an executed agreement.</p>
+        <div class="cta-acts reveal d3">
+          <a href="mailto:mark@museumplanning.com" class="btn btn-gold">Send a Message →</a>
+          <a href="https://amzn.to/3hwobnv" target="_blank" rel="noopener" class="btn btn-outline">Buy the Book →</a>
+        </div>
+      </div>
+      <div class="ci-items reveal d2">
+        <div class="ci"><div class="ci-lbl">Phone</div><div class="ci-val"><a href="tel:4157945252">415-794-5252</a></div></div>
+        <div class="ci"><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:mark@museumplanning.com">mark@museumplanning.com</a></div></div>
+        <div class="ci"><div class="ci-lbl">Website</div><div class="ci-val"><a href="https://museumplanning.com" target="_blank" rel="noopener">museumplanning.com</a></div></div>
+        <div class="ci"><div class="ci-lbl">Offices</div><div class="ci-val" style="font-size:18px;">New York · Mexico City</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <a href="#top" class="fbrand">
+      <div class="fmark"><span>MP<br>LLC</span></div>
+      <span class="fname">museum-experiences.com</span>
+    </a>
+    <div class="socials">
+      <a href="https://twitter.com/museum_visitor" target="_blank" rel="noopener">Twitter / X</a>
+      <a href="https://www.facebook.com/museumvisitor" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.pinterest.com/museumplanning/" target="_blank" rel="noopener">Pinterest</a>
+      <a href="https://www.linkedin.com/in/walhimer/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/c/MuseumCourses" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+  <div class="fb">
+    <div class="fcopy">© 2026 Designing Museum Experiences · Museum Planning LLC · All rights reserved</div>
+    <div class="fcontact">mark@museumplanning.com · 415-794-5252 · museumplanning.com</div>
+  </div>
+</footer>
+
+<script>
+// SCROLL REVEAL
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// MVI BARS
+let barsGo = false;
+const barsEl = document.getElementById('mviBars');
+const bObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting && !barsGo) {
+      barsGo = true;
+      document.querySelectorAll('.mbar-fill').forEach((f, i) => {
+        setTimeout(() => { f.style.width = f.dataset.w; }, i * 110);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+if (barsEl) bObs.observe(barsEl);
+
+// SCORE ARC
+const arc = document.getElementById('scoreArc');
+let arcGo = false;
+const aObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting && !arcGo && arc) {
+      arcGo = true;
+      arc.style.transition = 'none';
+      arc.style.strokeDashoffset = '270';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        arc.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.25,.46,.45,.94)';
+        arc.style.strokeDashoffset = '57';
+      }));
+    }
+  });
+}, { threshold: 0.3 });
+const mviEl = document.getElementById('mvi');
+if (arc && mviEl) aObs.observe(mviEl);
+
+// NAV SCROLL
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  navEl.style.background = window.scrollY > 60
+    ? 'rgba(15,26,36,.99)'
+    : 'rgba(15,26,36,.95)';
+}, { passive: true });
+
+// SMOOTH ANCHORS
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
