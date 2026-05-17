@@ -1,731 +1,1049 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Museum Planner — Mark Walhimer on Museums, Planning & the Future of Cultural Institutions</title>
-  <meta name="description" content="Museum Planner is where Mark Walhimer writes about museums — their planning, their governance, their future, and what it means to build one that lasts.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --ink:        #141210;
-      --ink-mid:    #2a2520;
-      --ink-soft:   #3d3830;
-      --cream:      #f5f0e8;
-      --cream-dim:  #e8e2d6;
-      --cream-mute: #b8b0a2;
-      --red:        #c0392b;
-      --red-soft:   #d9534f;
-      --copper:     #b5763a;
-      --rule:       rgba(245,240,232,0.12);
-      --rule-warm:  rgba(181,118,58,0.25);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--ink);
-      color: var(--cream);
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-weight: 300;
-      font-size: 18px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── MASTHEAD ─── */
-    .masthead {
-      border-bottom: 1px solid var(--rule);
-      padding: 28px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: rgba(20,18,16,0.96);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-    }
-
-    .masthead-logo {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      color: var(--cream);
-      text-decoration: none;
-    }
-
-    .masthead-logo span {
-      color: var(--copper);
-    }
-
-    .masthead-nav {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-      align-items: center;
-    }
-
-    .masthead-nav a {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--cream-mute);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .masthead-nav a:hover { color: var(--cream); }
-
-    .masthead-nav .nav-cta {
-      color: var(--copper);
-      border: 1px solid var(--rule-warm);
-      padding: 6px 16px;
-      border-radius: 2px;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .masthead-nav .nav-cta:hover {
-      background: var(--copper);
-      color: var(--ink);
-    }
-
-    /* ─── HERO ─── */
-    .hero {
-      padding: 100px 48px 80px;
-      max-width: 900px;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .hero-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--copper);
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .hero-eyebrow::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--copper);
-      opacity: 0.5;
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(42px, 6vw, 72px);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      color: var(--cream);
-      margin-bottom: 32px;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--cream-dim);
-    }
-
-    .hero-body {
-      font-size: 20px;
-      line-height: 1.65;
-      color: var(--cream-dim);
-      max-width: 660px;
-    }
-
-    .hero-body p + p { margin-top: 20px; }
-
-    /* ─── TWO-COLUMN LAYOUT ─── */
-    .page-body {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 0;
-      max-width: 1200px;
-    }
-
-    .main-col {
-      padding: 72px 72px 72px 48px;
-      border-right: 1px solid var(--rule);
-    }
-
-    .side-col {
-      padding: 72px 48px 72px 40px;
-    }
-
-    /* ─── SECTION HEADS ─── */
-    .section-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--copper);
-      margin-bottom: 32px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--rule-warm);
-    }
-
-    /* ─── ABOUT SECTION ─── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 64px;
-    }
-
-    .about-card h3 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 14px;
-      line-height: 1.25;
-    }
-
-    .about-card p {
-      font-size: 15px;
-      color: var(--cream-mute);
-      line-height: 1.7;
-    }
-
-    .about-card .card-icon {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--copper);
-      margin-bottom: 12px;
-      opacity: 0.7;
-    }
-
-    /* ─── DISTINCTION BLOCK ─── */
-    .distinction {
-      background: var(--ink-mid);
-      border-left: 3px solid var(--copper);
-      padding: 32px 36px;
-      margin: 48px 0;
-    }
-
-    .distinction p {
-      font-size: 17px;
-      color: var(--cream-dim);
-      line-height: 1.7;
-    }
-
-    .distinction p + p { margin-top: 16px; }
-
-    .distinction strong {
-      color: var(--cream);
-      font-weight: 500;
-    }
-
-    /* ─── CONTENT AREAS ─── */
-    .content-areas {
-      margin-bottom: 64px;
-    }
-
-    .content-area-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px 24px;
-    }
-
-    .content-area-list li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--rule);
-      font-size: 15px;
-    }
-
-    .content-area-list li a {
-      color: var(--cream-dim);
-      text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: color 0.2s;
-    }
-
-    .content-area-list li a:hover { color: var(--cream); }
-
-    .content-area-list .count {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      color: var(--cream-mute);
-      opacity: 0.6;
-    }
-
-    /* ─── RECENT POSTS ─── */
-    .recent-posts { margin-bottom: 48px; }
-
-    .post-item {
-      padding: 24px 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .post-item:first-of-type { padding-top: 0; }
-
-    .post-meta {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--copper);
-      margin-bottom: 8px;
-      opacity: 0.8;
-    }
-
-    .post-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 19px;
-      font-weight: 600;
-      line-height: 1.3;
-      color: var(--cream);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 8px;
-      transition: color 0.2s;
-    }
-
-    .post-title:hover { color: var(--cream-dim); }
-
-    .post-excerpt {
-      font-size: 14px;
-      color: var(--cream-mute);
-      line-height: 1.6;
-    }
-
-    /* ─── SIDEBAR ─── */
-    .sidebar-block {
-      margin-bottom: 48px;
-    }
-
-    /* ─── BOOKS ─── */
-    .book-item {
-      display: flex;
-      gap: 20px;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: flex-start;
-    }
-
-    .book-item:first-of-type { padding-top: 0; }
-
-    .book-cover {
-      width: 56px;
-      flex-shrink: 0;
-      background: var(--ink-soft);
-      aspect-ratio: 2/3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 9px;
-      color: var(--cream-mute);
-      text-align: center;
-      padding: 6px;
-      line-height: 1.3;
-    }
-
-    .book-cover.book-1 { background: #1a2b3c; color: #7ab; }
-    .book-cover.book-2 { background: #2a1a1a; color: #c97; }
-
-    .book-info h4 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 4px;
-      line-height: 1.25;
-    }
-
-    .book-info p {
-      font-size: 13px;
-      color: var(--cream-mute);
-      line-height: 1.5;
-    }
-
-    .book-info a {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      color: var(--copper);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      display: inline-block;
-      margin-top: 8px;
-    }
-
-    /* ─── ABOUT MARK ─── */
-    .about-mark {
-      background: var(--ink-mid);
-      padding: 28px;
-      border-radius: 2px;
-      margin-bottom: 48px;
-    }
-
-    .about-mark h4 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
-
-    .about-mark p {
-      font-size: 14px;
-      color: var(--cream-mute);
-      line-height: 1.65;
-    }
-
-    .about-mark p + p { margin-top: 10px; }
-
-    .about-mark .mark-link {
-      display: inline-block;
-      margin-top: 14px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--copper);
-      text-decoration: none;
-      border-bottom: 1px solid var(--rule-warm);
-      padding-bottom: 2px;
-    }
-
-    /* ─── SITES ─── */
-    .sites-list {
-      list-style: none;
-    }
-
-    .sites-list li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .sites-list a {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      color: var(--cream-dim);
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      transition: color 0.2s;
-    }
-
-    .sites-list a:hover { color: var(--cream); }
-
-    .sites-list .site-name {
-      font-weight: 500;
-      color: var(--cream);
-    }
-
-    .sites-list .site-desc {
-      font-size: 12px;
-      color: var(--cream-mute);
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      border-top: 1px solid var(--rule);
-      padding: 40px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .footer-left {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      color: var(--cream-mute);
-    }
-
-    .footer-left strong {
-      color: var(--cream);
-      font-weight: 500;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      color: var(--cream-mute);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--cream); }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero { animation: fadeUp 0.7s ease both; }
-    .page-body { animation: fadeUp 0.7s 0.15s ease both; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .masthead { padding: 20px 24px; }
-      .masthead-nav { gap: 16px; }
-      .hero { padding: 60px 24px 48px; }
-      .page-body { grid-template-columns: 1fr; }
-      .main-col { padding: 48px 24px; border-right: none; border-bottom: 1px solid var(--rule); }
-      .side-col { padding: 48px 24px; }
-      .about-grid { grid-template-columns: 1fr; gap: 32px; }
-      .content-area-list { grid-template-columns: 1fr; }
-      footer { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
-    }
-
-    @media (max-width: 600px) {
-      .masthead-nav .nav-archive,
-      .masthead-nav .nav-books { display: none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Museum Planner — Community · Courses · Essays · Mark Walhimer</title>
+<meta name="description" content="Museum Planner is the professional home for museum educators, exhibit staff, and emerging professionals. Community, AI-driven courses, and long-form writing about the future of museums.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:      #111010;
+  --ink-mid:  #1e1c1a;
+  --ink-soft: #2a2622;
+  --cream:    #f5f0e8;
+  --cream-dim:#c8c0b4;
+  --cream-faint: rgba(245,240,232,0.15);
+  --copper:   #b5763a;
+  --copper-lt:#d4904a;
+  --red:      #8b2020;
+  --rule:     rgba(245,240,232,0.1);
+  --rule-warm:rgba(181,118,58,0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOP STRIP ── */
+.top-strip {
+  background: var(--ink-mid);
+  border-bottom: 1px solid var(--rule);
+  padding: 7px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+.top-strip a { color: var(--copper); text-decoration: none; }
+.top-strip a:hover { color: var(--cream); }
+
+/* ── MASTHEAD ── */
+.masthead {
+  padding: 32px 48px 28px;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 32px;
+  position: sticky;
+  top: 0;
+  background: rgba(17,16,16,0.97);
+  backdrop-filter: blur(16px);
+  z-index: 100;
+}
+.masthead-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.masthead-logo em { font-style: italic; color: var(--copper); }
+.masthead-nav {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  align-items: center;
+}
+.masthead-nav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.masthead-nav a:hover { color: var(--cream); }
+.masthead-nav .cta {
+  color: var(--copper);
+  border: 1px solid var(--rule-warm);
+  padding: 6px 14px;
+}
+.masthead-nav .cta:hover { background: var(--copper); color: var(--ink); }
+
+/* ── HERO ── */
+.hero {
+  padding: 96px 48px 80px;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 80px;
+  max-width: 1200px;
+  align-items: start;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--copper);
+  opacity: 0.5;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 28px;
+}
+.hero h1 em { font-style: italic; color: var(--cream-dim); }
+.hero-body {
+  font-size: 19px;
+  line-height: 1.68;
+  color: var(--cream-dim);
+  margin-bottom: 36px;
+  max-width: 560px;
+}
+.hero-body p + p { margin-top: 16px; }
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--copper); color: var(--ink); }
+.btn-primary:hover { background: var(--copper-lt); }
+.btn-outline { border: 1px solid var(--rule-warm); color: var(--copper); }
+.btn-outline:hover { background: var(--copper); color: var(--ink); }
+
+/* hero right — thesis stats */
+.hero-right { padding-top: 4px; }
+.thesis-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+.thesis-stat { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.thesis-stat:last-child { border-bottom: none; }
+.thesis-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--copper);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.thesis-text {
+  font-size: 13px;
+  color: rgba(245,240,232,0.5);
+  line-height: 1.55;
+}
+
+/* ── THREE PILLARS ── */
+.pillars {
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 1200px;
+}
+.pillar {
+  padding: 48px 40px;
+  border-right: 1px solid var(--rule);
+  transition: background 0.2s;
+}
+.pillar:last-child { border-right: none; }
+.pillar:hover { background: var(--ink-mid); }
+.pillar-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 16px;
+}
+.pillar h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+.pillar h2 em { font-style: italic; color: var(--cream-dim); }
+.pillar p {
+  font-size: 14px;
+  color: rgba(245,240,232,0.5);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+.pillar-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+}
+.pillar-link:hover { color: var(--cream); }
+.pillar-link::after { content: ' →'; }
+
+/* ── AUDIENCE BANNER ── */
+.audience-banner {
+  background: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  max-width: 1200px;
+}
+.audience-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  flex-shrink: 0;
+}
+.audience-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.audience-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1px solid var(--rule);
+  color: var(--cream-dim);
+}
+.audience-aside {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(245,240,232,0.25);
+  flex-shrink: 0;
+}
+.audience-aside a {
+  color: var(--copper);
+  text-decoration: none;
+}
+.audience-aside a:hover { color: var(--cream); }
+
+/* ── MAIN BODY LAYOUT ── */
+.page-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  max-width: 1200px;
+}
+
+.main-col {
+  padding: 64px 64px 64px 48px;
+  border-right: 1px solid var(--rule);
+}
+
+.side-col {
+  padding: 64px 40px;
+}
+
+/* ── SECTION LABELS ── */
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--copper);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-warm);
+  margin-bottom: 32px;
+}
+
+/* ── COURSES ── */
+.courses-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  margin-bottom: 40px;
+}
+.course-card {
+  background: var(--ink);
+  padding: 28px 24px;
+  transition: background 0.2s;
+}
+.course-card:hover { background: var(--ink-mid); }
+.course-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+.badge-ai { background: var(--copper); color: var(--ink); }
+.badge-soon { border: 1px solid var(--rule); color: var(--cream-dim); }
+.course-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.course-card p {
+  font-size: 13px;
+  color: rgba(245,240,232,0.5);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.course-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(245,240,232,0.25);
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.course-meta span { color: rgba(245,240,232,0.4); margin-right: 12px; }
+.course-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+}
+.course-link:hover { color: var(--cream); }
+
+.ai-note {
+  border: 1px solid var(--rule-warm);
+  padding: 24px 28px;
+  margin-bottom: 48px;
+}
+.ai-note-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 10px;
+}
+.ai-note p {
+  font-size: 14px;
+  color: rgba(245,240,232,0.55);
+  line-height: 1.65;
+}
+
+/* ── ESSAYS ── */
+.post-item {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.post-item:first-child { padding-top: 0; }
+.post-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  margin-bottom: 6px;
+}
+.post-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--cream);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+.post-title:hover { color: var(--copper); }
+.post-excerpt {
+  font-size: 14px;
+  color: rgba(245,240,232,0.5);
+  line-height: 1.6;
+}
+
+.archive-link {
+  display: inline-block;
+  margin-top: 28px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-warm);
+  padding-bottom: 2px;
+}
+.archive-link:hover { color: var(--cream); }
+
+/* ── CONTENT AREAS ── */
+.content-area-list {
+  list-style: none;
+}
+.content-area-list li + li { border-top: 1px solid var(--rule); }
+.content-area-list a {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--cream-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.content-area-list a:hover { color: var(--copper); }
+.content-area-list .count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(245,240,232,0.25);
+}
+
+/* ── SIDEBAR ── */
+.sidebar-block { margin-bottom: 48px; }
+
+.about-mark h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+.about-mark p {
+  font-size: 13px;
+  color: rgba(245,240,232,0.5);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.about-mark a {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+}
+.about-mark a:hover { color: var(--cream); }
+
+/* join box */
+.join-box {
+  background: var(--ink-mid);
+  padding: 28px 24px;
+  margin-bottom: 32px;
+  border: 1px solid var(--rule-warm);
+}
+.join-box h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.join-box p {
+  font-size: 13px;
+  color: rgba(245,240,232,0.5);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.join-form { display: flex; flex-direction: column; gap: 8px; }
+.join-form input, .join-form select {
+  font-family: 'Source Serif 4', serif;
+  font-size: 13px;
+  padding: 9px 12px;
+  background: var(--ink-soft);
+  border: 1px solid var(--rule);
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.join-form input::placeholder { color: rgba(245,240,232,0.2); }
+.join-form input:focus, .join-form select:focus { border-color: var(--copper); }
+.join-form select {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(245,240,232,0.4);
+  appearance: none;
+}
+.join-form button {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 11px;
+  background: var(--copper);
+  color: var(--ink);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.join-form button:hover { background: var(--copper-lt); }
+.join-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.2);
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* book items */
+.book-item {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.book-item:last-child { border-bottom: none; }
+.book-cover {
+  width: 52px;
+  min-width: 52px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.3;
+  padding: 4px;
+}
+.book-1 { background: #2a1f14; border: 1px solid var(--copper); color: var(--copper); }
+.book-2 { background: #141f2a; border: 1px solid #4a7a9b; color: #6aaac4; }
+.book-info h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.book-info p {
+  font-size: 12px;
+  color: rgba(245,240,232,0.4);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.book-info a {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+}
+
+/* sites list */
+.sites-list { list-style: none; }
+.sites-list li { border-bottom: 1px solid var(--rule); }
+.sites-list a {
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.sites-list a:hover .site-name { color: var(--copper); }
+.site-name {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--cream-dim);
+  margin-bottom: 2px;
+}
+.site-desc {
+  font-size: 12px;
+  color: rgba(245,240,232,0.3);
+  line-height: 1.4;
+}
+
+/* linkedin */
+.linkedin-block {
+  background: var(--ink-soft);
+  padding: 20px;
+  border: 1px solid var(--rule);
+}
+.linkedin-block .li-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 8px;
+}
+.linkedin-block p {
+  font-size: 12px;
+  color: rgba(245,240,232,0.4);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.linkedin-block a {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 40px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+}
+.footer-left {
+  font-size: 13px;
+  color: rgba(245,240,232,0.3);
+  line-height: 1.7;
+}
+.footer-left strong { color: var(--cream-dim); }
+.footer-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--copper); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px 48px; }
+  .hero-right { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); }
+  .thesis-stat { background: var(--ink); padding: 20px 16px; border-bottom: none; }
+  .pillars { grid-template-columns: 1fr; }
+  .pillar { border-right: none; border-bottom: 1px solid var(--rule); }
+  .page-body { grid-template-columns: 1fr; }
+  .main-col { padding: 40px 24px; border-right: none; }
+  .side-col { padding: 0 24px 40px; }
+  .courses-grid { grid-template-columns: 1fr; }
+  .audience-banner { flex-wrap: wrap; gap: 12px; padding: 16px 24px; }
+  .audience-aside { margin-left: 0; }
+  .masthead { padding: 20px 24px; }
+  .masthead-nav { gap: 16px; }
+  .top-strip { padding: 7px 24px; flex-direction: column; gap: 3px; text-align: center; }
+  footer { flex-direction: column; gap: 20px; padding: 32px 24px; }
+  .footer-links { flex-wrap: wrap; gap: 16px; }
+}
+</style>
 </head>
 <body>
 
-  <!-- MASTHEAD -->
-  <header class="masthead">
-    <a href="/" class="masthead-logo">Museum<span>Planner</span></a>
-    <nav>
-      <ul class="masthead-nav">
-        <li class="nav-archive"><a href="/archive">Archive</a></li>
-        <li class="nav-books"><a href="/books">Books</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="https://museumplanning.com" class="nav-cta" target="_blank">Hire Mark →</a></li>
-      </ul>
-    </nav>
-  </header>
+<!-- TOP STRIP -->
+<div class="top-strip">
+  <span>Museum Planner · Mark Walhimer · museumplanner.org</span>
+  <span>
+    Consulting: <a href="https://museumplanning.com">museumplanning.com</a>
+    &nbsp;·&nbsp;
+    Artwork: <a href="https://mark-walhimer.com">mark-walhimer.com</a>
+  </span>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-eyebrow">Mark Walhimer · Since 2007</div>
-    <h1>Thirty years of thinking <em>about museums.</em></h1>
-    <div class="hero-body">
-      <p>Museum Planner is where the arguments live. Writing about what museums are, what they're becoming, and what it takes to build one that lasts — drawn from three decades of practice across forty institutions worldwide.</p>
-      <p>This is not the consulting firm. That's <a href="https://museumplanning.com" style="color: var(--copper); text-decoration: none;">museumplanning.com</a>. This is the place where the thinking happens in public.</p>
-    </div>
-  </section>
-
-  <!-- PAGE BODY -->
-  <div class="page-body">
-
-    <!-- MAIN COLUMN -->
-    <main class="main-col">
-
-      <!-- WHAT THIS SITE IS -->
-      <section style="margin-bottom: 64px;">
-        <div class="section-label">What This Site Is</div>
-
-        <div class="about-grid">
-          <div class="about-card">
-            <div class="card-icon">The Writing</div>
-            <h3>Arguments about museums and what they owe the public.</h3>
-            <p>Long-form pieces on museum governance, public trust, cultural policy, the future of the field, and the forces reshaping it — AI, demographics, politics, and funding structures.</p>
-          </div>
-          <div class="about-card">
-            <div class="card-icon">The Reference</div>
-            <h3>Practical knowledge drawn from forty museum projects.</h3>
-            <p>Exhibition design, cost benchmarks, feasibility frameworks, starting a museum from scratch. The evergreen content that practitioners and boards actually use — built since 2007.</p>
-          </div>
-          <div class="about-card">
-            <div class="card-icon">The Books</div>
-            <h3>Two published books. A third in development.</h3>
-            <p><em>Museums 101</em> and <em>Designing Museum Experiences</em>, both from Rowman &amp; Littlefield / AAM Press. Written from practice, not theory.</p>
-          </div>
-          <div class="about-card">
-            <div class="card-icon">The Archive</div>
-            <h3>Fifteen years of posts on every dimension of the field.</h3>
-            <p>Over 400 articles across exhibition design, museum planning, governance, types of museums, future trends, and the business of running a cultural institution.</p>
-          </div>
-        </div>
-
-        <div class="distinction">
-          <p><strong>museumplanner.org</strong> is Mark Walhimer's intellectual home — the place where thinking about museums happens in public. It is separate from <strong>museumplanning.com</strong>, the consulting firm, by design.</p>
-          <p>The consulting firm is where you hire Mark to plan a museum. This site is where you find out how he thinks about museums — the arguments, the frameworks, the disagreements with the field, the things worth caring about. Both are real. They serve different purposes and different readers.</p>
-        </div>
-      </section>
-
-      <!-- RECENT WRITING -->
-      <section class="recent-posts">
-        <div class="section-label">Recent Writing</div>
-
-        <article class="post-item">
-          <div class="post-meta">February 2026 · Future of Museums</div>
-          <a href="/museums-2026-caring-for-mind-and-soul/" class="post-title">2026 "Hard Mode": Museums Caring for Mind and Soul</a>
-          <p class="post-excerpt">As the world enters a period of sustained psychological difficulty, museums must shift from explaining history to actively caring for the public's mind and soul in the age of AI.</p>
-        </article>
-
-        <article class="post-item">
-          <div class="post-meta">February 2026 · Policy</div>
-          <a href="/obbba/" class="post-title">The "Big Beautiful Bill" and the Museum World: A Hard Wrong Turn for American Culture</a>
-          <p class="post-excerpt">What the One Big Beautiful Bill Act means for the public-private partnership that has sustained American museums for decades.</p>
-        </article>
-
-        <article class="post-item">
-          <div class="post-meta">January 2026 · Geopolitics</div>
-          <a href="/fortress-america/" class="post-title">Fortress America: The Geopolitical Crisis of 2026</a>
-          <p class="post-excerpt">The deliberate transformation of the U.S. from global policeman to imperial fortress — and what it means for cultural institutions built on openness and exchange.</p>
-        </article>
-
-        <article class="post-item">
-          <div class="post-meta">December 2025 · Future of Museums</div>
-          <a href="/the-convergence-era-why-museums-must-move-beyond-the-building/" class="post-title">The Convergence Era: Why Museums Must Move Beyond the Building</a>
-          <p class="post-excerpt">How AI, IoT, and agentic systems are creating "Museums Everywhere" — and why planning a building without planning an audience system is now incomplete.</p>
-        </article>
-
-        <article class="post-item">
-          <div class="post-meta">October 2025 · Governance</div>
-          <a href="/public-trust-of-museums/" class="post-title">Public Trust of Museums</a>
-          <p class="post-excerpt">For the first time in thirty years in museums, a hesitation before writing — and what that cooling effect means for institutions built on public trust.</p>
-        </article>
-
-        <div style="margin-top: 32px;">
-          <a href="/archive" style="font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--copper); text-decoration: none; border-bottom: 1px solid var(--rule-warm); padding-bottom: 3px;">View full archive →</a>
-        </div>
-      </section>
-
-      <!-- CONTENT AREAS -->
-      <section class="content-areas">
-        <div class="section-label">Content Areas</div>
-        <ul class="content-area-list">
-          <li><a href="/category/museum-exhibitions/exhibition-design/"><span>Exhibition Design</span><span class="count">95</span></a></li>
-          <li><a href="/category/starting-a-museum/"><span>Starting a Museum</span><span class="count">42</span></a></li>
-          <li><a href="/category/future-of-museums/"><span>Future of Museums</span><span class="count">47</span></a></li>
-          <li><a href="/category/types-of-museums/"><span>Types of Museums</span><span class="count">76</span></a></li>
-          <li><a href="/category/museum-planning/"><span>Museum Planning</span><span class="count">118</span></a></li>
-          <li><a href="/category/museum-planning/museum-governance/"><span>Museum Governance</span><span class="count">11</span></a></li>
-          <li><a href="/category/museum-exhibitions/exhibition-project-management/"><span>Exhibition Management</span><span class="count">27</span></a></li>
-          <li><a href="/category/museum-trends/"><span>Museum Trends</span><span class="count">17</span></a></li>
-          <li><a href="/category/museum-customer-experience/"><span>Visitor Experience</span><span class="count">14</span></a></li>
-          <li><a href="/category/museum-planning/fund-raising/"><span>Fundraising</span><span class="count">10</span></a></li>
-          <li><a href="/category/museum-education/"><span>Museum Education</span><span class="count">8</span></a></li>
-          <li><a href="/category/news/"><span>News &amp; Policy</span><span class="count">26</span></a></li>
-        </ul>
-      </section>
-
-    </main>
-
-    <!-- SIDEBAR -->
-    <aside class="side-col">
-
-      <!-- ABOUT MARK -->
-      <div class="about-mark sidebar-block">
-        <h4>Mark Walhimer</h4>
-        <p>Managing partner of Museum Planning, LLC. Since 1992, part of opening more than forty museums across the United States and internationally — science centers, children's museums, natural history museums, history museums, cultural centers.</p>
-        <p>Author of <em>Museums 101</em> (2015) and <em>Designing Museum Experiences</em> (2021), both published by Rowman &amp; Littlefield.</p>
-        <a href="https://museumplanning.com/museum-planning-about.html" class="mark-link" target="_blank">Full biography →</a>
-      </div>
-
-      <!-- BOOKS -->
-      <div class="sidebar-block">
-        <div class="section-label">Books</div>
-
-        <div class="book-item">
-          <div class="book-cover book-1">Museums 101</div>
-          <div class="book-info">
-            <h4>Museums 101</h4>
-            <p>What a museum is, how it is governed, what nonprofit form and public trust require. The foundational text.</p>
-            <a href="https://amzn.to/2TxIDfN" target="_blank">Buy on Amazon →</a>
-          </div>
-        </div>
-
-        <div class="book-item">
-          <div class="book-cover book-2">Designing Museum Experiences</div>
-          <div class="book-info">
-            <h4>Designing Museum Experiences</h4>
-            <p>The craft of turning a collection or mission into something people actually experience — and return to.</p>
-            <a href="https://amzn.to/3hwobnv" target="_blank">Buy on Amazon →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- THE PRACTICE -->
-      <div class="sidebar-block">
-        <div class="section-label">The Practice</div>
-        <ul class="sites-list">
-          <li>
-            <a href="https://museumplanning.com" target="_blank">
-              <span class="site-name">museumplanning.com</span>
-              <span class="site-desc">Consulting firm — feasibility through opening day</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://museumplanning.com/museum-vitality-index.html" target="_blank">
-              <span class="site-name">Museum Vitality Index</span>
-              <span class="site-desc">0–100 scoring framework for museum health</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://museums101.com" target="_blank">
-              <span class="site-name">museums101.com</span>
-              <span class="site-desc">Companion site to the book</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://museum-experiences.com" target="_blank">
-              <span class="site-name">museum-experiences.com</span>
-              <span class="site-desc">Companion site to Designing Museum Experiences</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://museumcourses.com" target="_blank">
-              <span class="site-name">museumcourses.com</span>
-              <span class="site-desc">Online museum courses</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- CONTACT -->
-      <div style="background: var(--ink-mid); padding: 24px; border-radius: 2px;">
-        <div class="section-label" style="margin-bottom: 16px;">Start a Conversation</div>
-        <p style="font-size: 14px; color: var(--cream-mute); line-height: 1.6; margin-bottom: 16px;">Planning a museum? Working through a feasibility study? Reach the consulting practice directly.</p>
-        <a href="mailto:mark@museumplanning.com" style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--ink); background: var(--copper); padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 2px; letter-spacing: 0.03em;">mark@museumplanning.com</a>
-      </div>
-
-    </aside>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-left">
-      <strong>Museum Planner</strong> · Run by <strong>Museum Planning, LLC</strong> · New York · Mexico City · Worldwide<br>
-      <span style="font-size: 12px;">© 2026 Museum Planning, LLC. All rights reserved.</span>
-    </div>
-    <ul class="footer-links">
-      <li><a href="https://museumplanning.com">museumplanning.com</a></li>
-      <li><a href="/archive">Archive</a></li>
-      <li><a href="https://www.instagram.com/museumplanning/" target="_blank">Instagram</a></li>
-      <li><a href="https://www.linkedin.com/company/museum-planning-llc/" target="_blank">LinkedIn</a></li>
-      <li><a href="/contact-us/">Contact</a></li>
+<!-- MASTHEAD -->
+<header class="masthead">
+  <a href="/" class="masthead-logo">Museum <em>Planner</em></a>
+  <nav>
+    <ul class="masthead-nav">
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#essays">Essays</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="https://museumplanning.com" class="cta">Hire Mark →</a></li>
     </ul>
-  </footer>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">The Convergence Era · 2026</div>
+    <h1>The Museum Is No<br>Longer <em>a Building.</em></h1>
+    <div class="hero-body">
+      <p>It is a distributed interpretive system — an interconnected network of metadata, AI-driven content, sensors, and spatial computation. 30,000 American cities have civic buildings and no museum. That is about to change.</p>
+      <p>Museum Planner is where museum educators, exhibit designers, floor staff, and emerging professionals come to think about what comes next — and learn the tools to build it.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="#community" class="btn btn-primary">Join the Community</a>
+      <a href="#courses" class="btn btn-outline">Explore Courses</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="thesis-label">The argument in numbers</div>
+    <div class="thesis-stat">
+      <div class="thesis-num">30K</div>
+      <div class="thesis-text">U.S. cities with civic buildings and no museum model — yet.</div>
+    </div>
+    <div class="thesis-stat">
+      <div class="thesis-num">40+</div>
+      <div class="thesis-text">Museums planned and opened by Mark Walhimer since 1992.</div>
+    </div>
+    <div class="thesis-stat">
+      <div class="thesis-num">6K+</div>
+      <div class="thesis-text">Museum professionals in the Museum Planner community.</div>
+    </div>
+    <div class="thesis-stat">
+      <div class="thesis-num">25yr</div>
+      <div class="thesis-text">The methodology is proven. The moment is now different.</div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PILLARS -->
+<div class="pillars">
+  <div class="pillar">
+    <div class="pillar-num">01 · Community</div>
+    <h2>Where Museum<br><em>Builders Talk</em></h2>
+    <p>Educators, exhibit designers, floor staff, emerging professionals — everyone building or running a museum. Real conversation on Skool. Not a conference. Not LinkedIn.</p>
+    <a href="#community" class="pillar-link">Join the conversation</a>
+  </div>
+  <div class="pillar">
+    <div class="pillar-num">02 · Courses</div>
+    <h2>AI-Driven<br><em>Learning</em></h2>
+    <p>The first professional development platform built for museum professionals with AI at the core. Courses adapt to your institution type, budget, and role. Nobody else is doing this.</p>
+    <a href="#courses" class="pillar-link">Browse courses</a>
+  </div>
+  <div class="pillar">
+    <div class="pillar-num">03 · Essays</div>
+    <h2>Arguments About<br><em>the Future</em></h2>
+    <p>The Convergence Era. Museums Everywhere. What AI does to interpretation. The hard questions about funding, politics, and relevance. Mark Walhimer writing — not curating.</p>
+    <a href="#essays" class="pillar-link">Read the essays</a>
+  </div>
+</div>
+
+<!-- AUDIENCE BANNER -->
+<div class="audience-banner">
+  <span class="audience-label">This site is for</span>
+  <div class="audience-tags">
+    <span class="audience-tag">Museum Educators</span>
+    <span class="audience-tag">Exhibit Designers</span>
+    <span class="audience-tag">Floor Staff</span>
+    <span class="audience-tag">Emerging Professionals</span>
+    <span class="audience-tag">Museum Studies Students</span>
+    <span class="audience-tag">Curators</span>
+    <span class="audience-tag">Development Staff</span>
+  </div>
+  <span class="audience-aside">Planning a museum? <a href="https://museumplanning.com">museumplanning.com →</a></span>
+</div>
+
+<!-- MAIN BODY -->
+<div class="page-body">
+
+  <!-- MAIN COLUMN -->
+  <main class="main-col">
+
+    <!-- COURSES -->
+    <section id="courses" style="margin-bottom: 64px;">
+      <div class="section-label">AI-Driven Professional Development</div>
+
+      <div class="courses-grid">
+        <div class="course-card">
+          <span class="course-badge badge-ai">AI-Driven</span>
+          <h3>Museum Vitality Index: Reading Your Institution</h3>
+          <p>Learn to interpret an MVI report — financial health, digital presence, visitor experience, community impact, institutional strength. Adapts to your institution type and budget.</p>
+          <div class="course-meta"><span>6 modules</span><span>Self-paced</span><span>Certificate</span></div>
+          <a href="https://museumplanner.org/courses" class="course-link">Enroll →</a>
+        </div>
+        <div class="course-card">
+          <span class="course-badge badge-ai">AI-Driven</span>
+          <h3>Strategic Planning for Small Museums</h3>
+          <p>Mission, vision, values — and a multi-year plan that actually gets used. Built from 40 real museum strategic plans. The AI adjusts to your institution type and budget tier.</p>
+          <div class="course-meta"><span>5 modules</span><span>Self-paced</span><span>Certificate</span></div>
+          <a href="https://museumplanner.org/courses" class="course-link">Enroll →</a>
+        </div>
+        <div class="course-card">
+          <span class="course-badge badge-ai">AI-Driven</span>
+          <h3>How to Start a Museum: Feasibility Framework</h3>
+          <p>Attendance modeling, operating cost projections, staffing requirements, revenue assumptions. What kills museums before they open — and how to avoid it.</p>
+          <div class="course-meta"><span>8 modules</span><span>Self-paced</span><span>Certificate</span></div>
+          <a href="https://museumplanner.org/courses" class="course-link">Enroll →</a>
+        </div>
+        <div class="course-card">
+          <span class="course-badge badge-ai">AI-Driven</span>
+          <h3>AI Tools for Museum Professionals</h3>
+          <p>Practical fluency: how AI changes grant writing, donor research, visitor interpretation, collections management, and strategic planning. Real tools, real museum budgets.</p>
+          <div class="course-meta"><span>6 modules</span><span>Self-paced</span><span>Certificate</span></div>
+          <a href="https://museumplanner.org/courses" class="course-link">Enroll →</a>
+        </div>
+        <div class="course-card">
+          <span class="course-badge badge-soon">Coming Soon</span>
+          <h3>Exhibition Design: Concept Through Fabrication</h3>
+          <p>From the first interpretive brief to fabrication-ready documentation. Content, space, sequence, and the hand-off to a fabricator. What exhibition designers actually do.</p>
+          <div class="course-meta"><span>10 modules</span><span>Self-paced</span><span>Certificate</span></div>
+          <a href="https://museumplanner.org/courses" class="course-link">Notify me →</a>
+        </div>
+        <div class="course-card">
+          <span class="course-badge badge-soon">Coming Soon</span>
+          <h3>The Convergence Era: Museums in the Age of AI</h3>
+          <p>Embodied AI. Spatial computing. Museums Everywhere. Distributed interpretive systems. For museum professionals who need to think 10 years ahead.</p>
+          <div class="course-meta"><span>4 modules</span><span>Self-paced</span><span>Certificate</span></div>
+          <a href="https://museumplanner.org/courses" class="course-link">Notify me →</a>
+        </div>
+      </div>
+
+      <div class="ai-note">
+        <div class="ai-note-label">Why AI-Driven</div>
+        <p>A feasibility course for a $2M natural history museum in a rural county is a different course than one for a $28M science center in a major city. These courses adapt to your institution type, budget, and role — responsive learning built on 25 years of real museum planning methodology. Nobody in the museum field has built this.</p>
+      </div>
+    </section>
+
+    <!-- ESSAYS -->
+    <section id="essays" style="margin-bottom: 64px;">
+      <div class="section-label">Recent Writing</div>
+
+      <article class="post-item">
+        <div class="post-meta">February 2026 · Future of Museums</div>
+        <a href="/museums-2026-caring-for-mind-and-soul/" class="post-title">2026 "Hard Mode": Museums Caring for Mind and Soul</a>
+        <p class="post-excerpt">As the world enters a period of sustained psychological difficulty, museums must shift from explaining history to actively caring for the public's mind and soul in the age of AI.</p>
+      </article>
+
+      <article class="post-item">
+        <div class="post-meta">February 2026 · Policy</div>
+        <a href="/obbba/" class="post-title">The "Big Beautiful Bill" and the Museum World: A Hard Wrong Turn for American Culture</a>
+        <p class="post-excerpt">What the One Big Beautiful Bill Act means for the public-private partnership that has sustained American museums for decades.</p>
+      </article>
+
+      <article class="post-item">
+        <div class="post-meta">January 2026 · Geopolitics</div>
+        <a href="/fortress-america/" class="post-title">Fortress America: The Geopolitical Crisis of 2026</a>
+        <p class="post-excerpt">The deliberate transformation of the U.S. from global policeman to imperial fortress — and what it means for cultural institutions built on openness and exchange.</p>
+      </article>
+
+      <article class="post-item">
+        <div class="post-meta">December 2025 · Future of Museums</div>
+        <a href="/the-convergence-era-why-museums-must-move-beyond-the-building/" class="post-title">The Convergence Era: Why Museums Must Move Beyond the Building</a>
+        <p class="post-excerpt">How AI, IoT, and agentic systems are creating "Museums Everywhere" — and why planning a building without planning an audience system is now incomplete.</p>
+      </article>
+
+      <article class="post-item">
+        <div class="post-meta">October 2025 · Governance</div>
+        <a href="/public-trust-of-museums/" class="post-title">Public Trust of Museums</a>
+        <p class="post-excerpt">For the first time in thirty years in museums, a hesitation before writing — and what that cooling effect means for institutions built on public trust.</p>
+      </article>
+
+      <a href="/archive" class="archive-link">View full archive →</a>
+    </section>
+
+    <!-- CONTENT AREAS -->
+    <section>
+      <div class="section-label">Browse by Topic</div>
+      <ul class="content-area-list">
+        <li><a href="/category/museum-exhibitions/exhibition-design/"><span>Exhibition Design</span><span class="count">95</span></a></li>
+        <li><a href="/category/starting-a-museum/"><span>Starting a Museum</span><span class="count">42</span></a></li>
+        <li><a href="/category/future-of-museums/"><span>Future of Museums</span><span class="count">47</span></a></li>
+        <li><a href="/category/types-of-museums/"><span>Types of Museums</span><span class="count">76</span></a></li>
+        <li><a href="/category/museum-planning/"><span>Museum Planning</span><span class="count">118</span></a></li>
+        <li><a href="/category/museum-planning/museum-governance/"><span>Museum Governance</span><span class="count">11</span></a></li>
+        <li><a href="/category/museum-exhibitions/exhibition-project-management/"><span>Exhibition Management</span><span class="count">27</span></a></li>
+        <li><a href="/category/museum-trends/"><span>Museum Trends</span><span class="count">17</span></a></li>
+        <li><a href="/category/museum-customer-experience/"><span>Visitor Experience</span><span class="count">14</span></a></li>
+        <li><a href="/category/museum-planning/fund-raising/"><span>Fundraising</span><span class="count">10</span></a></li>
+        <li><a href="/category/museum-education/"><span>Museum Education</span><span class="count">8</span></a></li>
+        <li><a href="/category/news/"><span>News &amp; Policy</span><span class="count">26</span></a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="side-col">
+
+    <!-- JOIN COMMUNITY -->
+    <div id="community" class="sidebar-block">
+      <div class="section-label">Join Museum Planner</div>
+      <div class="join-box">
+        <h4>Join the Community</h4>
+        <p>Free membership. Community discussion on Skool. Access to course previews and the Museum Planner digest.</p>
+        <div class="join-form">
+          <input type="text" placeholder="Your name">
+          <input type="email" placeholder="Email address">
+          <select>
+            <option value="" disabled selected>Your role</option>
+            <option>Museum Educator</option>
+            <option>Exhibit Designer</option>
+            <option>Floor Staff</option>
+            <option>Curator</option>
+            <option>Development Officer</option>
+            <option>Executive Director</option>
+            <option>Museum Studies Student</option>
+            <option>Emerging Professional</option>
+            <option>Other</option>
+          </select>
+          <button type="button">Join Museum Planner →</button>
+          <div class="join-note">Free · No spam · Unsubscribe anytime</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT MARK -->
+    <div id="about" class="sidebar-block about-mark">
+      <div class="section-label">Mark Walhimer</div>
+      <h4>Mark Walhimer</h4>
+      <p>Managing partner of Museum Planning LLC. Since 1992, part of opening more than forty museums across the United States and internationally — science centers, children's museums, natural history museums, history museums, cultural centers.</p>
+      <p>Author of <em>Museums 101</em> and <em>Designing Museum Experiences</em>, both from AAM Press / Rowman & Littlefield. A third edition is in development.</p>
+      <a href="https://museumplanning.com/museum-planning-about.html" target="_blank">Full biography →</a>
+    </div>
+
+    <!-- BOOKS -->
+    <div class="sidebar-block">
+      <div class="section-label">Books</div>
+      <div class="book-item">
+        <div class="book-cover book-1">Museums 101</div>
+        <div class="book-info">
+          <h4>Museums 101</h4>
+          <p>What a museum is, how it is governed, what nonprofit form and public trust require.</p>
+          <a href="https://amzn.to/2TxIDfN" target="_blank">Buy on Amazon →</a>
+        </div>
+      </div>
+      <div class="book-item">
+        <div class="book-cover book-2">Designing Museum Experiences</div>
+        <div class="book-info">
+          <h4>Designing Museum Experiences</h4>
+          <p>Turning a collection or mission into something people actually experience and return to.</p>
+          <a href="https://amzn.to/3hwobnv" target="_blank">Buy on Amazon →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE PRACTICE -->
+    <div class="sidebar-block">
+      <div class="section-label">The Full Practice</div>
+      <ul class="sites-list">
+        <li>
+          <a href="https://museumplanning.com" target="_blank">
+            <span class="site-name">museumplanning.com</span>
+            <span class="site-desc">Consulting firm — feasibility through opening day</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://museumplanning.com/museum-vitality-index.html" target="_blank">
+            <span class="site-name">Museum Vitality Index</span>
+            <span class="site-desc">0–100 scoring framework for museum health</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://museums101.com" target="_blank">
+            <span class="site-name">museums101.com</span>
+            <span class="site-desc">Companion site to the book</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://museum-experiences.com" target="_blank">
+            <span class="site-name">museum-experiences.com</span>
+            <span class="site-desc">Companion site to Designing Museum Experiences</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://markwalhimer.com" target="_blank">
+            <span class="site-name">markwalhimer.com</span>
+            <span class="site-desc">Professional — author, speaker, consultant</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://mark-walhimer.com" target="_blank">
+            <span class="site-name">mark-walhimer.com</span>
+            <span class="site-desc">Artwork</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- LINKEDIN GROUP -->
+    <div class="sidebar-block">
+      <div class="linkedin-block">
+        <div class="li-label">LinkedIn Community</div>
+        <p>4,300+ museum professionals in the Museum Planning LinkedIn group. Join the conversation on LinkedIn or follow here.</p>
+        <a href="https://www.linkedin.com/groups/4346566/" target="_blank">Join the LinkedIn group →</a>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <strong>Museum Planner</strong> · Run by <strong>Museum Planning, LLC</strong><br>
+    <span>San Francisco · New York · Mexico City · © 2026 Museum Planning, LLC</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="https://museumplanning.com">museumplanning.com</a></li>
+    <li><a href="/archive">Archive</a></li>
+    <li><a href="https://www.instagram.com/museumplanning/" target="_blank">Instagram</a></li>
+    <li><a href="https://www.linkedin.com/company/museum-planning-llc/" target="_blank">LinkedIn</a></li>
+    <li><a href="https://www.linkedin.com/groups/4346566/" target="_blank">LinkedIn Group</a></li>
+    <li><a href="mailto:mark@museumplanning.com">Contact</a></li>
+  </ul>
+</footer>
 
 </body>
 </html>
